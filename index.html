@@ -7,243 +7,761 @@
   <title>MCSA</title>
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial;
+    :root {
+      --cream: #eee6cf;
+      --cream-light: #f8f4ea;
+      --wine: #8f1d1d;
+      --wine-dark: #621313;
+      --text-main: #1f1f1f;
+      --text-soft: #6b6255;
+      --line: #e5ddcb;
+      --white: #ffffff;
+      --dark: #151515;
     }
 
-    body{
-      background:#efefef;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, "Microsoft YaHei", sans-serif;
     }
 
-    header{
-      background:white;
-      padding:30px 80px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:20px;
+    body {
+      background: var(--cream-light);
+      color: var(--text-main);
     }
 
-    .logo-circle{
-      width:100px;
-      height:100px;
-      border-radius:50%;
-      border:2px solid #ccc;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    nav{
-      display:flex;
-      gap:40px;
-      font-size:22px;
-      font-weight:bold;
+    img {
+      display: block;
+      max-width: 100%;
     }
 
-    .hero{
-      height:800px;
-      background:#e6dfc2;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
+    /* =========================
+       Opening Animation
+    ========================= */
+
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--cream);
     }
 
-    .hero h1{
-      font-size:72px;
-      margin-bottom:40px;
+    .intro-panel {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: var(--cream);
+      z-index: 2;
     }
 
-    .hero button{
-      background:#9f1f1f;
-      color:white;
-      border:none;
-      padding:16px 30px;
-      border-radius:6px;
-      font-size:18px;
+    .intro-panel.top {
+      top: 0;
+      animation: openTop 1.2s cubic-bezier(.77, 0, .18, 1) forwards;
+      animation-delay: 2.35s;
     }
 
-    .cards{
-      display:flex;
-      justify-content:center;
-      gap:40px;
-      padding:120px 60px;
+    .intro-panel.bottom {
+      bottom: 0;
+      animation: openBottom 1.2s cubic-bezier(.77, 0, .18, 1) forwards;
+      animation-delay: 2.35s;
     }
 
-    .card{
-      text-align:center;
+    .intro-line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: rgba(143, 29, 29, 0.45);
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      animation: introLine 1.2s ease forwards;
+      animation-delay: 1.15s;
     }
 
-    .card-image{
-      width:320px;
-      height:420px;
-      background:linear-gradient(white,#eaa);
-      margin-bottom:25px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:40px;
+    .intro-content {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--wine);
+      text-align: center;
+      animation: introFadeOut 0.7s ease forwards;
+      animation-delay: 1.9s;
     }
 
-    .card a{
-      color:#d33;
-      font-size:28px;
+    .intro-logo-mark {
+      width: 88px;
+      height: 88px;
+      border: 1.5px solid rgba(143, 29, 29, 0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.22);
+      animation: introZoom 1.5s ease forwards;
     }
 
-    .social{
-      background:#111;
-      color:white;
-      padding:80px;
+    .intro-content h1 {
+      font-size: clamp(46px, 9vw, 106px);
+      letter-spacing: 0.2em;
+      margin-left: 0.2em;
+      font-weight: 700;
+      line-height: 1;
+      animation: introZoom 1.5s ease forwards;
     }
 
-    .social-grid{
-      display:flex;
-      justify-content:center;
-      gap:40px;
+    .intro-content p {
+      margin-top: 18px;
+      font-size: clamp(13px, 1.5vw, 19px);
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      opacity: 0;
+      animation: introText 1s ease forwards;
+      animation-delay: 0.45s;
     }
 
-    .qr{
-      width:260px;
-      height:260px;
-      background:white;
-      color:black;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:20px;
+    @keyframes introZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+      45% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.03);
+      }
     }
 
-    footer{
-      background:white;
-      text-align:center;
-      padding:80px;
+    @keyframes introText {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 0.8;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes introLine {
+      from {
+        width: 0;
+      }
+      to {
+        width: min(680px, 76vw);
+      }
+    }
+
+    @keyframes introFadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes openTop {
+      to {
+        transform: translateY(-100%);
+      }
+    }
+
+    @keyframes openBottom {
+      to {
+        transform: translateY(100%);
+      }
+    }
+
+    #intro.hide {
+      display: none;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(248, 244, 234, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      padding: 22px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 330px;
+    }
+
+    .logo-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo-text h2 {
+      color: var(--wine);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-text p {
+      color: var(--text-soft);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2f2b26;
+      white-space: nowrap;
+    }
+
+    nav div {
+      cursor: pointer;
+      position: relative;
+      padding: 8px 0;
+      transition: color 0.25s ease;
+    }
+
+    nav div::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--wine);
+      transition: width 0.25s ease;
+    }
+
+    nav div:hover {
+      color: var(--wine);
+    }
+
+    nav div:hover::after {
+      width: 100%;
+    }
+
+    /* =========================
+       Hero
+    ========================= */
+
+    .hero {
+      min-height: 760px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(143, 29, 29, 0.08), transparent 32%),
+        linear-gradient(135deg, #f8f4ea 0%, #eee6cf 55%, #e6dcc1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "MCSA";
+      position: absolute;
+      font-size: clamp(130px, 22vw, 330px);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(143, 29, 29, 0.045);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+    }
+
+    .eyebrow {
+      color: var(--wine);
+      font-size: 15px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 26px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(46px, 7vw, 86px);
+      line-height: 1.08;
+      margin-bottom: 28px;
+      color: var(--text-main);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      color: var(--text-soft);
+      font-size: 20px;
+      line-height: 1.8;
+      max-width: 720px;
+      margin: 0 auto 42px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 15px 30px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--wine);
+      color: white;
+      box-shadow: 0 18px 40px rgba(143, 29, 29, 0.22);
+    }
+
+    .btn-primary:hover {
+      background: var(--wine-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid var(--line);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       Cards
+    ========================= */
+
+    .cards-section {
+      padding: 110px 64px;
+      background: var(--cream-light);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 58px;
+    }
+
+    .section-title p {
+      color: var(--wine);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(34px, 4vw, 52px);
+      color: var(--text-main);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 22px 60px rgba(45, 37, 27, 0.06);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 26px 70px rgba(45, 37, 27, 0.1);
+    }
+
+    .card-image {
+      height: 360px;
+      background:
+        linear-gradient(145deg, rgba(143, 29, 29, 0.08), transparent),
+        linear-gradient(180deg, #fffaf0, #e8dcc1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(143, 29, 29, 0.38);
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .card-content {
+      padding: 30px;
+    }
+
+    .card-content h3 {
+      font-size: 26px;
+      color: var(--wine);
+      margin-bottom: 12px;
+    }
+
+    .card-content p {
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* =========================
+       Social
+    ========================= */
+
+    .social {
+      background: var(--dark);
+      color: white;
+      padding: 100px 64px;
+    }
+
+    .social .section-title h2 {
+      color: white;
+    }
+
+    .social .section-title p {
+      color: #d9b6a4;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 28px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .social-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+
+    .social-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .qr {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: white;
+      color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .social-card p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       Footer
+    ========================= */
+
+    footer {
+      background: #fbf8f1;
+      text-align: center;
+      padding: 80px 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    footer p {
+      color: var(--text-soft);
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+
+    footer h2 {
+      color: var(--wine);
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    footer small {
+      color: #8f8779;
+    }
+
+    /* =========================
+       Responsive
+    ========================= */
+
+    @media (max-width: 1100px) {
+      header {
+        padding: 20px 30px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      nav {
+        width: 100%;
+        overflow-x: auto;
+        gap: 22px;
+        padding-bottom: 4px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .logo {
+        min-width: 0;
+      }
+
+      .logo-circle {
+        width: 58px;
+        height: 58px;
+      }
+
+      .logo-text h2 {
+        font-size: 18px;
+      }
+
+      .logo-text p {
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 680px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .cards-section,
+      .social {
+        padding: 80px 22px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
-<!-- Opening Animation -->
-<div id="intro">
-  <div class="intro-panel top"></div>
-  <div class="intro-panel bottom"></div>
 
-  <div class="intro-content">
-    <!-- 如果你有 logo，把 src 换成你的 logo 路径 -->
-    <!-- <img src="images/logo.png" alt="MCSA Logo" class="intro-logo"> -->
+  <!-- Opening Animation -->
+  <div id="intro">
+    <div class="intro-panel top"></div>
+    <div class="intro-panel bottom"></div>
+    <div class="intro-line"></div>
 
-    <h1>MCSA</h1>
-    <p>Monash Chinese Student Association</p>
+    <div class="intro-content">
+      <div class="intro-logo-mark">MCSA</div>
+      <h1>MCSA</h1>
+      <p>Monash Chinese Student Association</p>
+    </div>
   </div>
-</div>
-<header>
 
-  <div class="logo">
+  <header>
+    <div class="logo">
+      <div class="logo-circle">
+        <img src="logo.png" alt="MCSA Logo">
+      </div>
 
-    <div class="logo-circle">
-      <img src="logo.png" width="100%">
+      <div class="logo-text">
+        <h2>蒙纳士大学中国学生会</h2>
+        <p>Monash Chinese Student Association</p>
+      </div>
     </div>
 
-    <div>
-      <h2 style="color:#9f1f1f;">
-        蒙纳士大学中国学生会
-      </h2>
+    <nav>
+      <div>关于我们</div>
+      <div>最新活动</div>
+      <div>校园资讯</div>
+      <div>往期回顾</div>
+      <div>MCSA招新</div>
+      <div>历届主席</div>
+      <div>折扣商家</div>
+      <div>年度赞助</div>
+    </nav>
+  </header>
 
-      <p style="color:#c55;">
-        Monash Chinese Student Association
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Monash Chinese Student Association</div>
+
+      <h1>MCSA 欢迎您</h1>
+
+      <p>
+        连接蒙纳士华人学生，分享校园资讯、活动资源与留学生活支持。
+        在这里，找到属于你的社区。
       </p>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary">关于我们</button>
+        <button class="btn btn-secondary">查看活动</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cards-section">
+    <div class="section-title">
+      <p>Explore</p>
+      <h2>了解 MCSA</h2>
     </div>
 
-  </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-image">IMAGE</div>
+        <div class="card-content">
+          <h3>部门介绍</h3>
+          <p>了解 MCSA 各部门职责、团队结构，以及学生会日常运营内容。</p>
+        </div>
+      </div>
 
-  <nav>
-    <div>关于我们</div>
-    <div>最新活动</div>
-    <div>校园资讯</div>
-    <div>往期回顾</div>
-    <div>MCSA招新</div>
-    <div>历届主席</div>
-    <div>折扣商家</div>
-    <div>年度赞助</div>
-  </nav>
+      <div class="card">
+        <div class="card-image">IMAGE</div>
+        <div class="card-content">
+          <h3>新生指南</h3>
+          <p>为新生提供校园生活、课程学习、交通住宿和生活资源指引。</p>
+        </div>
+      </div>
 
-</header>
+      <div class="card">
+        <div class="card-image">IMAGE</div>
+        <div class="card-content">
+          <h3>加入我们</h3>
+          <p>加入 MCSA，与优秀的伙伴一起策划活动、服务学生、建立连接。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="hero">
-
-  <h1>MCSA欢迎您</h1>
-
-  <button>关于我们</button>
-
-</section>
-
-<section class="cards">
-
-  <div class="card">
-    <div class="card-image">IMAGE</div>
-    <a>部门介绍</a>
-  </div>
-
-  <div class="card">
-    <div class="card-image">IMAGE</div>
-    <a>新生指南</a>
-  </div>
-
-  <div class="card">
-    <div class="card-image">IMAGE</div>
-    <a>加入我们</a>
-  </div>
-
-</section>
-
-<section class="social">
-
-  <div class="social-grid">
-
-    <div>
-      <div class="qr">
-      <img src="wechat.jpg" width="100%">
+  <section class="social">
+    <div class="section-title">
+      <p>Follow Us</p>
+      <h2>关注我们</h2>
     </div>
 
-    <div>
-      <div class="qr">
-      <img src="instagram.jpg" width="100%">
+    <div class="social-grid">
+
+      <div class="social-card">
+        <div class="qr">
+          <img src="wechat.jpg" alt="WeChat QR Code">
+        </div>
+        <p>微信公众号</p>
+      </div>
+
+      <div class="social-card">
+        <div class="qr">
+          <img src="instagram.jpg" alt="Instagram QR Code">
+        </div>
+        <p>Instagram</p>
+      </div>
+
+      <div class="social-card">
+        <div class="qr">QR</div>
+        <p>抖音</p>
+      </div>
+
+      <div class="social-card">
+        <div class="qr">QR</div>
+        <p>小红书</p>
+      </div>
+
     </div>
+  </section>
 
-    <div>
-      <div class="qr">QR</div>
-      <p>抖音</p>
-    </div>
+  <footer>
+    <p>IT Support 邮箱：monashcsait@gmail.com</p>
 
-    <div>
-      <div class="qr">QR</div>
-      <p>小红书</p>
-    </div>
+    <h2>MCSA 蒙纳士大学中国学生会</h2>
 
-  </div>
+    <small>© 2026 Monash Chinese Student Association. All rights reserved.</small>
+  </footer>
 
-</section>
+  <script>
+    window.addEventListener("load", function () {
+      const intro = document.getElementById("intro");
 
-<footer>
-
-  <p>
-    IT Support 邮箱：
-    monashcsait@gmail.com
-  </p>
-
-  <br><br>
-
-  <h2>MCSA蒙纳士大学中国学生会</h2>
-
-</footer>
+      setTimeout(() => {
+        intro.classList.add("hide");
+      }, 3800);
+    });
+  </script>
 
 </body>
 </html>
