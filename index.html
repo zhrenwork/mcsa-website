@@ -26,7 +26,7 @@
 
     /* =========================
        Premium Opening Animation
-       一整张 GIF，不切割，避免龙错位
+       完整 GIF，不切割，避免龙错位
     ========================= */
 
     #opening-screen {
@@ -48,10 +48,6 @@
         filter 1.15s ease;
     }
 
-    /*
-      背景模糊层：
-      用同一张 GIF 放大模糊，填充外部空白。
-    */
     .opening-bg {
       position: absolute;
       inset: 0;
@@ -64,10 +60,6 @@
       z-index: 1;
     }
 
-    /*
-      主 GIF：
-      只放一张完整图，不切成两半。
-    */
     .opening-main-wrap {
       position: absolute;
       inset: 0;
@@ -107,10 +99,6 @@
       }
     }
 
-    /*
-      高级柔光遮罩：
-      只做氛围，不切图，不产生中线。
-    */
     #opening-screen::before {
       content: "";
       position: absolute;
@@ -123,9 +111,6 @@
       opacity: 0.95;
     }
 
-    /*
-      底部轻微光晕，增加高级感。
-    */
     #opening-screen::after {
       content: "";
       position: absolute;
@@ -139,10 +124,6 @@
       pointer-events: none;
     }
 
-    /*
-      开场结束：
-      整体淡出 + 轻微放大，不切割，所以不会错位。
-    */
     #opening-screen.hide-opening {
       opacity: 0;
       transform: scale(1.045);
@@ -153,9 +134,6 @@
       display: none;
     }
 
-    /*
-      首页淡入
-    */
     .page-content {
       opacity: 0;
       transform: translateY(16px);
@@ -713,15 +691,17 @@
 
       resetToHome();
 
+      // GIF 播放约 3.2 秒，然后开始淡出
       setTimeout(function () {
         pageContent.classList.add("show");
         opening.classList.add("hide-opening");
-      }, 2600);
+      }, 3400);
 
+      // 淡出完成后彻底移除开场层
       setTimeout(function () {
         opening.classList.add("remove-opening");
         resetToHome();
-      }, 3800);
+      }, 4600);
     });
   </script>
 
