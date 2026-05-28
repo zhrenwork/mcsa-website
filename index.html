@@ -25,7 +25,8 @@
     }
 
     /* =========================
-       Premium Opening Animation - Left Right Curtain FIXED
+       Premium Opening Animation
+       一整张 GIF，不切割，避免龙错位
     ========================= */
 
     #opening-screen {
@@ -39,149 +40,116 @@
         radial-gradient(circle at center, rgba(255, 255, 255, 0.85), transparent 38%),
         linear-gradient(135deg, #efe6c5 0%, #f7efd4 45%, #e9dfbc 100%);
       pointer-events: none;
-    }
-
-    .opening-half {
-      position: absolute;
-      top: 0;
-      width: 50vw;
-      height: 100vh;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.82), transparent 40%),
-        linear-gradient(135deg, #efe6c5 0%, #f7efd4 45%, #e9dfbc 100%);
+      opacity: 1;
+      transform: scale(1);
       transition:
-        transform 1.55s cubic-bezier(0.77, 0, 0.175, 1),
-        filter 1.55s ease;
-      will-change: transform;
-    }
-
-    .left-half {
-      left: 0;
-    }
-
-    .right-half {
-      right: 0;
+        opacity 1.15s ease,
+        transform 1.15s ease,
+        filter 1.15s ease;
     }
 
     /*
-      背景层：
-      用同一个 opening.gif 放大模糊，填充空白区域。
+      背景模糊层：
+      用同一张 GIF 放大模糊，填充外部空白。
     */
     .opening-bg {
       position: absolute;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       filter: blur(22px) saturate(1.08) brightness(1.04);
-      opacity: 0.58;
+      transform: scale(1.12);
+      opacity: 0.55;
       z-index: 1;
-    }
-
-    .left-half .opening-bg {
-      left: 0;
-    }
-
-    .right-half .opening-bg {
-      right: 0;
     }
 
     /*
       主 GIF：
-      关键点：左右两边必须以屏幕中线为同一个中心点。
-      这样龙的左右两半才不会错位。
+      只放一张完整图，不切成两半。
     */
-    .opening-main {
+    .opening-main-wrap {
       position: absolute;
-      top: 0;
-      width: min(96vw, 1200px);
-      height: 100vh;
-      object-fit: contain;
+      inset: 0;
       z-index: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: openingEnter 1.3s ease forwards;
+    }
+
+    .opening-main {
+      width: min(86vw, 1050px);
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
       filter:
-        drop-shadow(0 18px 42px rgba(123, 95, 38, 0.18))
-        drop-shadow(0 0 28px rgba(255, 255, 255, 0.45));
-      animation: openingFocus 2.2s ease forwards;
+        drop-shadow(0 22px 48px rgba(123, 95, 38, 0.18))
+        drop-shadow(0 0 28px rgba(255, 255, 255, 0.55));
     }
 
-    /*
-      左半边：
-      图片中心放在左幕布的右边缘，也就是屏幕中线。
-    */
-    .left-half .opening-main {
-      left: 100%;
-      transform: translateX(-50%);
-    }
-
-    /*
-      右半边：
-      图片中心放在右幕布的左边缘，也就是屏幕中线。
-    */
-    .right-half .opening-main {
-      left: 0;
-      transform: translateX(-50%);
-    }
-
-    /*
-      注意：这个动画不能改 transform。
-      否则左右两半又会错位。
-    */
-    @keyframes openingFocus {
+    @keyframes openingEnter {
       0% {
         opacity: 0;
-        filter:
-          blur(2px)
-          drop-shadow(0 18px 42px rgba(123, 95, 38, 0.12));
+        transform: scale(0.94) translateY(12px);
+        filter: blur(2px);
       }
 
-      35% {
+      45% {
         opacity: 1;
       }
 
       100% {
         opacity: 1;
-        filter:
-          blur(0)
-          drop-shadow(0 18px 42px rgba(123, 95, 38, 0.18))
-          drop-shadow(0 0 28px rgba(255, 255, 255, 0.45));
+        transform: scale(1) translateY(0);
+        filter: blur(0);
       }
     }
 
     /*
-      柔光遮罩，让 opening.gif 看起来更高级。
-      没有中间线。
+      高级柔光遮罩：
+      只做氛围，不切图，不产生中线。
     */
     #opening-screen::before {
       content: "";
       position: absolute;
       inset: 0;
-      z-index: 8;
+      z-index: 5;
       pointer-events: none;
       background:
-        radial-gradient(circle at center, transparent 0%, transparent 45%, rgba(92, 72, 28, 0.12) 100%),
-        linear-gradient(90deg, rgba(255,255,255,0.32), transparent 18%, transparent 82%, rgba(255,255,255,0.32));
+        radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(92, 72, 28, 0.12) 100%),
+        linear-gradient(90deg, rgba(255,255,255,0.34), transparent 20%, transparent 80%, rgba(255,255,255,0.34));
       opacity: 0.95;
     }
 
+    /*
+      底部轻微光晕，增加高级感。
+    */
     #opening-screen::after {
-      display: none;
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -120px;
+      width: 70vw;
+      height: 220px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(185, 28, 28, 0.16), transparent 70%);
+      z-index: 4;
+      pointer-events: none;
     }
 
     /*
-      左右幕布打开
+      开场结束：
+      整体淡出 + 轻微放大，不切割，所以不会错位。
     */
-    #opening-screen.open .left-half {
-      transform: translateX(-105%);
-      filter: brightness(1.03);
+    #opening-screen.hide-opening {
+      opacity: 0;
+      transform: scale(1.045);
+      filter: blur(6px);
     }
 
-    #opening-screen.open .right-half {
-      transform: translateX(105%);
-      filter: brightness(1.03);
-    }
-
-    #opening-screen.hide {
+    #opening-screen.remove-opening {
       display: none;
     }
 
@@ -585,12 +553,13 @@
       }
 
       .opening-main {
-        width: min(100vw, 900px);
+        width: min(94vw, 900px);
+        max-height: 74vh;
       }
 
       .opening-bg {
         filter: blur(18px) saturate(1.08) brightness(1.04);
-        opacity: 0.6;
+        opacity: 0.62;
       }
     }
   </style>
@@ -598,15 +567,10 @@
 
 <body>
 
-  <!-- 开场动画：左右高级幕布打开，左右主体已对齐 -->
+  <!-- 开场动画：完整 GIF，不切割，避免龙错位 -->
   <div id="opening-screen">
-    <div class="opening-half left-half">
-      <img class="opening-bg" src="images/opening.gif" alt="">
-      <img class="opening-main" src="images/opening.gif" alt="MCSA Opening Animation">
-    </div>
-
-    <div class="opening-half right-half">
-      <img class="opening-bg" src="images/opening.gif" alt="">
+    <img class="opening-bg" src="images/opening.gif" alt="">
+    <div class="opening-main-wrap">
       <img class="opening-main" src="images/opening.gif" alt="MCSA Opening Animation">
     </div>
   </div>
@@ -750,14 +714,14 @@
       resetToHome();
 
       setTimeout(function () {
-        opening.classList.add("open");
         pageContent.classList.add("show");
-      }, 2300);
+        opening.classList.add("hide-opening");
+      }, 2600);
 
       setTimeout(function () {
-        opening.classList.add("hide");
+        opening.classList.add("remove-opening");
         resetToHome();
-      }, 3950);
+      }, 3800);
     });
   </script>
 
