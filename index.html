@@ -25,7 +25,7 @@
     }
 
     /* =========================
-       Opening Animation
+       Premium Opening Animation
     ========================= */
 
     #opening-screen {
@@ -36,10 +36,9 @@
       z-index: 9999;
       overflow: hidden;
       background:
-        radial-gradient(circle at center, rgba(185, 28, 28, 0.32), transparent 38%),
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 26%),
-        linear-gradient(135deg, #050505 0%, #210707 48%, #050505 100%);
-      pointer-events: auto;
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.85), transparent 38%),
+        linear-gradient(135deg, #efe6c5 0%, #f7efd4 45%, #e9dfbc 100%);
+      pointer-events: none;
     }
 
     .opening-half {
@@ -49,12 +48,12 @@
       height: 50vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at center, rgba(185, 28, 28, 0.28), transparent 42%),
-        linear-gradient(135deg, #050505 0%, #1a0505 52%, #050505 100%);
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.82), transparent 40%),
+        linear-gradient(135deg, #efe6c5 0%, #f7efd4 45%, #e9dfbc 100%);
       transition:
-        transform 1.45s cubic-bezier(0.77, 0, 0.175, 1),
-        filter 1.45s ease;
-      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.9);
+        transform 1.55s cubic-bezier(0.77, 0, 0.175, 1),
+        filter 1.55s ease;
+      will-change: transform;
     }
 
     .top-half {
@@ -65,7 +64,7 @@
       bottom: 0;
     }
 
-    /* 外层模糊背景：填充画面 */
+    /* 背景层：用同一个 GIF 放大模糊，填充外部区域 */
     .opening-bg {
       position: absolute;
       left: 50%;
@@ -73,24 +72,24 @@
       height: 100vh;
       object-fit: cover;
       transform: translateX(-50%) scale(1.12);
-      filter: blur(24px) brightness(0.48) contrast(1.35) saturate(1.15);
-      opacity: 0.72;
+      filter: blur(22px) saturate(1.08) brightness(1.04);
+      opacity: 0.58;
       z-index: 1;
     }
 
-    /* 主 GIF：保持清晰，不强行拉爆 */
+    /* 主 GIF：保持清晰，不强行拉满 */
     .opening-main {
       position: absolute;
       left: 50%;
-      width: min(86vw, 980px);
+      width: min(88vw, 1050px);
       height: 100vh;
       object-fit: contain;
-      transform: translateX(-50%) scale(0.94);
-      filter:
-        drop-shadow(0 0 28px rgba(185, 28, 28, 0.42))
-        drop-shadow(0 0 80px rgba(0, 0, 0, 0.85));
+      transform: translateX(-50%) scale(0.96);
       z-index: 3;
-      animation: openingZoom 2.2s ease forwards;
+      filter:
+        drop-shadow(0 18px 42px rgba(123, 95, 38, 0.18))
+        drop-shadow(0 0 28px rgba(255, 255, 255, 0.45));
+      animation: openingFocus 2.2s ease forwards;
     }
 
     .top-half .opening-bg,
@@ -103,71 +102,88 @@
       bottom: 0;
     }
 
-    @keyframes openingZoom {
+    @keyframes openingFocus {
       0% {
         opacity: 0;
-        transform: translateX(-50%) scale(0.88);
+        transform: translateX(-50%) scale(0.91);
+        filter:
+          blur(2px)
+          drop-shadow(0 18px 42px rgba(123, 95, 38, 0.12));
       }
 
-      25% {
+      35% {
         opacity: 1;
       }
 
       100% {
         opacity: 1;
-        transform: translateX(-50%) scale(0.98);
+        transform: translateX(-50%) scale(1);
+        filter:
+          blur(0)
+          drop-shadow(0 18px 42px rgba(123, 95, 38, 0.18))
+          drop-shadow(0 0 28px rgba(255, 255, 255, 0.45));
       }
     }
 
-    /* 中间红线 */
+    /* 高级柔光遮罩 */
     #opening-screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, transparent 0%, transparent 45%, rgba(92, 72, 28, 0.12) 100%),
+        linear-gradient(90deg, rgba(255,255,255,0.32), transparent 18%, transparent 82%, rgba(255,255,255,0.32));
+      opacity: 0.95;
+    }
+
+    /* 中间金色/红色细线，增强幕布打开质感 */
+    #opening-screen::after {
       content: "";
       position: absolute;
       left: 50%;
       top: 50%;
       width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #ef4444, #ffffff, #ef4444, transparent);
+      height: 1.5px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(185, 28, 28, 0.25),
+        rgba(255, 255, 255, 0.95),
+        rgba(185, 28, 28, 0.25),
+        transparent
+      );
       transform: translate(-50%, -50%);
-      z-index: 10;
+      z-index: 20;
       opacity: 0;
-      box-shadow: 0 0 24px rgba(239, 68, 68, 0.9);
-      animation: redLineFlash 2.2s ease forwards;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.85);
+      animation: centerLine 2.2s ease forwards;
     }
 
-    @keyframes redLineFlash {
+    @keyframes centerLine {
       0% {
         width: 0;
         opacity: 0;
       }
 
-      55% {
+      50% {
         width: 0;
         opacity: 0;
       }
 
-      72% {
-        width: 86vw;
+      78% {
+        width: 78vw;
         opacity: 1;
       }
 
       100% {
         width: 100vw;
-        opacity: 0.35;
+        opacity: 0.5;
       }
     }
 
-    /* 暗色遮罩，让整体更有冲击力 */
-    #opening-screen::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.18) 42%, rgba(0, 0, 0, 0.78) 100%);
-      z-index: 8;
-      pointer-events: none;
-    }
-
+    /* 上下幕布边缘线 */
     .top-half::after {
       content: "";
       position: absolute;
@@ -175,8 +191,15 @@
       bottom: 0;
       width: 100%;
       height: 1px;
-      background: rgba(239, 68, 68, 0.48);
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.9);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(185, 28, 28, 0.25),
+        rgba(255, 255, 255, 0.8),
+        rgba(185, 28, 28, 0.25),
+        transparent
+      );
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.75);
       z-index: 12;
     }
 
@@ -187,58 +210,43 @@
       top: 0;
       width: 100%;
       height: 1px;
-      background: rgba(239, 68, 68, 0.48);
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.9);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(185, 28, 28, 0.25),
+        rgba(255, 255, 255, 0.8),
+        rgba(185, 28, 28, 0.25),
+        transparent
+      );
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.75);
       z-index: 12;
     }
 
+    /* 幕布打开 */
     #opening-screen.open .top-half {
       transform: translateY(-105%);
-      filter: brightness(0.88);
+      filter: brightness(1.03);
     }
 
     #opening-screen.open .bottom-half {
       transform: translateY(105%);
-      filter: brightness(0.88);
+      filter: brightness(1.03);
     }
 
     #opening-screen.hide {
       display: none;
     }
 
-    .sound-hint {
-      position: absolute;
-      left: 50%;
-      bottom: 34px;
-      transform: translateX(-50%);
-      z-index: 20;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 13px;
-      letter-spacing: 0.8px;
-      padding: 9px 16px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.32);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(8px);
+    /* 让首页在幕布打开时有一点淡入感 */
+    .page-content {
       opacity: 0;
-      animation: hintShow 1.2s ease 0.6s forwards;
+      transform: translateY(16px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
-    @keyframes hintShow {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-    }
-
-    #opening-screen.open .sound-hint {
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .page-content.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* =========================
@@ -627,17 +635,12 @@
       }
 
       .opening-main {
-        width: min(94vw, 820px);
+        width: min(96vw, 900px);
       }
 
       .opening-bg {
-        filter: blur(20px) brightness(0.45) contrast(1.25);
-        opacity: 0.76;
-      }
-
-      .sound-hint {
-        font-size: 12px;
-        bottom: 24px;
+        filter: blur(18px) saturate(1.08) brightness(1.04);
+        opacity: 0.6;
       }
     }
   </style>
@@ -645,10 +648,7 @@
 
 <body>
 
-  <!-- 音效文件 -->
-  <audio id="opening-audio" src="images/opening-sound.mp3" preload="auto"></audio>
-
-  <!-- 开场动画 -->
+  <!-- 开场动画：高级浅色幕布版，使用原 opening.gif -->
   <div id="opening-screen">
     <div class="opening-half top-half">
       <img class="opening-bg" src="images/opening.gif" alt="">
@@ -659,132 +659,131 @@
       <img class="opening-bg" src="images/opening.gif" alt="">
       <img class="opening-main" src="images/opening.gif" alt="MCSA Opening Animation">
     </div>
-
-    <div class="sound-hint">Click anywhere for sound</div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <div class="logo-area">
-      <img src="images/logo.png" alt="MCSA Logo">
-      <div class="logo-text">
-        <strong>MCSA</strong>
-        <span>Monash Chinese Students Association</span>
-      </div>
-    </div>
+  <div class="page-content" id="page-content">
 
-    <nav>
-      <a href="#home">首页</a>
-      <a href="#about">关于我们</a>
-      <a href="#events">活动</a>
-      <a href="#membership">会员</a>
-      <a href="#contact">联系我们</a>
-    </nav>
-  </header>
-
-  <!-- 固定第一个界面：Home -->
-  <section id="home">
-    <div class="hero-container">
-      <div class="hero-content">
-        <div class="hero-label">Welcome to MCSA</div>
-
-        <h1>
-          Monash <span class="highlight-red">Chinese</span><br>
-          Students Association
-        </h1>
-
-        <p>
-          MCSA 致力于连接 Monash 华人学生群体，提供活动、社交、校园支持与文化交流平台。
-          在这里，你可以认识朋友、参与活动、了解校园资讯，并找到属于自己的社区。
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#about" class="btn btn-primary">了解我们</a>
-          <a href="#contact" class="btn btn-secondary">联系我们</a>
-        </div>
-      </div>
-
-      <div class="hero-card">
+    <!-- Header -->
+    <header>
+      <div class="logo-area">
         <img src="images/logo.png" alt="MCSA Logo">
-        <h2>MCSA</h2>
-        <p>
-          A student community for connection, culture, events and support at Monash University.
+        <div class="logo-text">
+          <strong>MCSA</strong>
+          <span>Monash Chinese Students Association</span>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#home">首页</a>
+        <a href="#about">关于我们</a>
+        <a href="#events">活动</a>
+        <a href="#membership">会员</a>
+        <a href="#contact">联系我们</a>
+      </nav>
+    </header>
+
+    <!-- 固定第一个界面：Home -->
+    <section id="home">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-label">Welcome to MCSA</div>
+
+          <h1>
+            Monash <span class="highlight-red">Chinese</span><br>
+            Students Association
+          </h1>
+
+          <p>
+            MCSA 致力于连接 Monash 华人学生群体，提供活动、社交、校园支持与文化交流平台。
+            在这里，你可以认识朋友、参与活动、了解校园资讯，并找到属于自己的社区。
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#about" class="btn btn-primary">了解我们</a>
+            <a href="#contact" class="btn btn-secondary">联系我们</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img src="images/logo.png" alt="MCSA Logo">
+          <h2>MCSA</h2>
+          <p>
+            A student community for connection, culture, events and support at Monash University.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-inner">
+        <h2 class="section-title">关于我们</h2>
+        <p class="section-text">
+          MCSA 是 Monash 华人学生社群平台，面向在校学生组织活动、分享校园信息，
+          帮助新老同学更好地融入校园生活。
         </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About -->
-  <section id="about">
-    <div class="section-inner">
-      <h2 class="section-title">关于我们</h2>
-      <p class="section-text">
-        MCSA 是 Monash 华人学生社群平台，面向在校学生组织活动、分享校园信息，
-        帮助新老同学更好地融入校园生活。
-      </p>
-    </div>
-  </section>
+    <!-- Events -->
+    <section id="events">
+      <div class="section-inner">
+        <h2 class="section-title">活动</h2>
+        <p class="section-text">
+          我们会定期举办迎新、社交、节日庆祝、职业分享、文化交流等活动。
+          更多活动信息会通过 Instagram、微信和小红书发布。
+        </p>
+      </div>
+    </section>
 
-  <!-- Events -->
-  <section id="events">
-    <div class="section-inner">
-      <h2 class="section-title">活动</h2>
-      <p class="section-text">
-        我们会定期举办迎新、社交、节日庆祝、职业分享、文化交流等活动。
-        更多活动信息会通过 Instagram、微信和小红书发布。
-      </p>
-    </div>
-  </section>
+    <!-- Membership -->
+    <section id="membership">
+      <div class="section-inner">
+        <h2 class="section-title">会员</h2>
+        <p class="section-text">
+          加入 MCSA，你可以第一时间获取活动信息、认识更多 Monash 同学，
+          并参与社团组织的各类校园活动。
+        </p>
+      </div>
+    </section>
 
-  <!-- Membership -->
-  <section id="membership">
-    <div class="section-inner">
-      <h2 class="section-title">会员</h2>
-      <p class="section-text">
-        加入 MCSA，你可以第一时间获取活动信息、认识更多 Monash 同学，
-        并参与社团组织的各类校园活动。
-      </p>
-    </div>
-  </section>
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-inner">
+        <h2 class="section-title">联系我们</h2>
+        <p class="section-text">
+          关注我们的社交媒体，获取最新活动和校园资讯。
+        </p>
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="section-inner">
-      <h2 class="section-title">联系我们</h2>
-      <p class="section-text">
-        关注我们的社交媒体，获取最新活动和校园资讯。
-      </p>
+        <div class="social-grid">
+          <div class="social-card">
+            <img src="images/ins.jpg" alt="Instagram QR Code">
+            <strong>Instagram</strong>
+          </div>
 
-      <div class="social-grid">
-        <div class="social-card">
-          <img src="images/ins.jpg" alt="Instagram QR Code">
-          <strong>Instagram</strong>
-        </div>
+          <div class="social-card">
+            <img src="images/wechat.jpg" alt="WeChat QR Code">
+            <strong>WeChat</strong>
+          </div>
 
-        <div class="social-card">
-          <img src="images/wechat.jpg" alt="WeChat QR Code">
-          <strong>WeChat</strong>
-        </div>
-
-        <div class="social-card">
-          <img src="images/xhs.jpg" alt="Xiaohongshu QR Code">
-          <strong>小红书</strong>
+          <div class="social-card">
+            <img src="images/xhs.jpg" alt="Xiaohongshu QR Code">
+            <strong>小红书</strong>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    © 2026 MCSA. All rights reserved.
-  </footer>
+    <footer>
+      © 2026 MCSA. All rights reserved.
+    </footer>
+
+  </div>
 
   <script>
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
-
-    const openingScreen = document.getElementById("opening-screen");
-    const openingAudio = document.getElementById("opening-audio");
 
     function resetToHome() {
       if (window.location.hash) {
@@ -794,45 +793,21 @@
       window.scrollTo(0, 0);
     }
 
-    function playOpeningSound() {
-      if (!openingAudio) return;
-
-      openingAudio.volume = 0.72;
-      openingAudio.currentTime = 0;
-
-      const playPromise = openingAudio.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch(function () {
-          // 浏览器禁止自动播放时，等待用户第一次点击
-        });
-      }
-    }
-
-    function enableSoundOnFirstClick() {
-      document.addEventListener("click", function () {
-        playOpeningSound();
-      }, { once: true });
-    }
-
     window.addEventListener("load", function () {
+      const opening = document.getElementById("opening-screen");
+      const pageContent = document.getElementById("page-content");
+
       resetToHome();
 
-      // 尝试自动播放音效
-      playOpeningSound();
-
-      // 如果浏览器拦截，第一次点击页面时播放
-      enableSoundOnFirstClick();
-
-      // 正式开场节奏：先压一下，再打开
       setTimeout(function () {
-        openingScreen.classList.add("open");
-      }, 2400);
+        opening.classList.add("open");
+        pageContent.classList.add("show");
+      }, 2300);
 
       setTimeout(function () {
-        openingScreen.classList.add("hide");
+        opening.classList.add("hide");
         resetToHome();
-      }, 4100);
+      }, 3950);
     });
   </script>
 
