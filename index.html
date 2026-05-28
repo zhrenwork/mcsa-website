@@ -35,8 +35,11 @@
       height: 100vh;
       z-index: 9999;
       overflow: hidden;
-      background: #ffffff;
-      pointer-events: none;
+      background:
+        radial-gradient(circle at center, rgba(185, 28, 28, 0.32), transparent 38%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 26%),
+        linear-gradient(135deg, #050505 0%, #210707 48%, #050505 100%);
+      pointer-events: auto;
     }
 
     .opening-half {
@@ -45,8 +48,13 @@
       width: 100%;
       height: 50vh;
       overflow: hidden;
-      background: #ffffff;
-      transition: transform 1.4s ease-in-out;
+      background:
+        radial-gradient(circle at center, rgba(185, 28, 28, 0.28), transparent 42%),
+        linear-gradient(135deg, #050505 0%, #1a0505 52%, #050505 100%);
+      transition:
+        transform 1.45s cubic-bezier(0.77, 0, 0.175, 1),
+        filter 1.45s ease;
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.9);
     }
 
     .top-half {
@@ -57,32 +65,180 @@
       bottom: 0;
     }
 
-    .opening-half img {
+    /* 外层模糊背景：填充画面 */
+    .opening-bg {
       position: absolute;
-      left: 0;
-      width: 100%;
+      left: 50%;
+      width: 100vw;
       height: 100vh;
       object-fit: cover;
+      transform: translateX(-50%) scale(1.12);
+      filter: blur(24px) brightness(0.48) contrast(1.35) saturate(1.15);
+      opacity: 0.72;
+      z-index: 1;
     }
 
-    .top-half img {
+    /* 主 GIF：保持清晰，不强行拉爆 */
+    .opening-main {
+      position: absolute;
+      left: 50%;
+      width: min(86vw, 980px);
+      height: 100vh;
+      object-fit: contain;
+      transform: translateX(-50%) scale(0.94);
+      filter:
+        drop-shadow(0 0 28px rgba(185, 28, 28, 0.42))
+        drop-shadow(0 0 80px rgba(0, 0, 0, 0.85));
+      z-index: 3;
+      animation: openingZoom 2.2s ease forwards;
+    }
+
+    .top-half .opening-bg,
+    .top-half .opening-main {
       top: 0;
     }
 
-    .bottom-half img {
+    .bottom-half .opening-bg,
+    .bottom-half .opening-main {
       bottom: 0;
     }
 
+    @keyframes openingZoom {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.88);
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(0.98);
+      }
+    }
+
+    /* 中间红线 */
+    #opening-screen::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ef4444, #ffffff, #ef4444, transparent);
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      opacity: 0;
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.9);
+      animation: redLineFlash 2.2s ease forwards;
+    }
+
+    @keyframes redLineFlash {
+      0% {
+        width: 0;
+        opacity: 0;
+      }
+
+      55% {
+        width: 0;
+        opacity: 0;
+      }
+
+      72% {
+        width: 86vw;
+        opacity: 1;
+      }
+
+      100% {
+        width: 100vw;
+        opacity: 0.35;
+      }
+    }
+
+    /* 暗色遮罩，让整体更有冲击力 */
+    #opening-screen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.18) 42%, rgba(0, 0, 0, 0.78) 100%);
+      z-index: 8;
+      pointer-events: none;
+    }
+
+    .top-half::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(239, 68, 68, 0.48);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.9);
+      z-index: 12;
+    }
+
+    .bottom-half::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(239, 68, 68, 0.48);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.9);
+      z-index: 12;
+    }
+
     #opening-screen.open .top-half {
-      transform: translateY(-100%);
+      transform: translateY(-105%);
+      filter: brightness(0.88);
     }
 
     #opening-screen.open .bottom-half {
-      transform: translateY(100%);
+      transform: translateY(105%);
+      filter: brightness(0.88);
     }
 
     #opening-screen.hide {
       display: none;
+    }
+
+    .sound-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 34px;
+      transform: translateX(-50%);
+      z-index: 20;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      letter-spacing: 0.8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      animation: hintShow 1.2s ease 0.6s forwards;
+    }
+
+    @keyframes hintShow {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    #opening-screen.open .sound-hint {
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     /* =========================
@@ -469,21 +625,42 @@
       .social-grid {
         justify-content: center;
       }
+
+      .opening-main {
+        width: min(94vw, 820px);
+      }
+
+      .opening-bg {
+        filter: blur(20px) brightness(0.45) contrast(1.25);
+        opacity: 0.76;
+      }
+
+      .sound-hint {
+        font-size: 12px;
+        bottom: 24px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 开场动画：上下分离 -->
+  <!-- 音效文件 -->
+  <audio id="opening-audio" src="images/opening-sound.mp3" preload="auto"></audio>
+
+  <!-- 开场动画 -->
   <div id="opening-screen">
     <div class="opening-half top-half">
-      <img src="images/opening.gif" alt="MCSA Opening Animation">
+      <img class="opening-bg" src="images/opening.gif" alt="">
+      <img class="opening-main" src="images/opening.gif" alt="MCSA Opening Animation">
     </div>
 
     <div class="opening-half bottom-half">
-      <img src="images/opening.gif" alt="MCSA Opening Animation">
+      <img class="opening-bg" src="images/opening.gif" alt="">
+      <img class="opening-main" src="images/opening.gif" alt="MCSA Opening Animation">
     </div>
+
+    <div class="sound-hint">Click anywhere for sound</div>
   </div>
 
   <!-- Header -->
@@ -602,18 +779,60 @@
   </footer>
 
   <script>
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    const openingScreen = document.getElementById("opening-screen");
+    const openingAudio = document.getElementById("opening-audio");
+
+    function resetToHome() {
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    function playOpeningSound() {
+      if (!openingAudio) return;
+
+      openingAudio.volume = 0.72;
+      openingAudio.currentTime = 0;
+
+      const playPromise = openingAudio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(function () {
+          // 浏览器禁止自动播放时，等待用户第一次点击
+        });
+      }
+    }
+
+    function enableSoundOnFirstClick() {
+      document.addEventListener("click", function () {
+        playOpeningSound();
+      }, { once: true });
+    }
+
     window.addEventListener("load", function () {
-      const opening = document.getElementById("opening-screen");
+      resetToHome();
 
-      // 先播放 opening.gif
-      setTimeout(function () {
-        opening.classList.add("open");
-      }, 2200);
+      // 尝试自动播放音效
+      playOpeningSound();
 
-      // 上下分离后隐藏开场层
+      // 如果浏览器拦截，第一次点击页面时播放
+      enableSoundOnFirstClick();
+
+      // 正式开场节奏：先压一下，再打开
       setTimeout(function () {
-        opening.classList.add("hide");
-      }, 3800);
+        openingScreen.classList.add("open");
+      }, 2400);
+
+      setTimeout(function () {
+        openingScreen.classList.add("hide");
+        resetToHome();
+      }, 4100);
     });
   </script>
 
