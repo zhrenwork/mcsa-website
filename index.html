@@ -19,7 +19,7 @@
     }
 
     body {
-      background: #f5f5f5;
+      background: #f6f2e8;
       color: #222;
       overflow-x: hidden;
     }
@@ -86,102 +86,292 @@
     }
 
     /* =========================
-       Homepage
+       Header
     ========================= */
 
     header {
-      width: 100%;
-      padding: 24px 70px;
-      background: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       position: fixed;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 86px;
+      padding: 0 70px;
+      background: rgba(246, 242, 232, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       z-index: 100;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
 
-    .logo {
+    .logo-area {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
-    .logo img {
-      width: 68px;
-      height: 68px;
+    .logo-area img {
+      width: 58px;
+      height: 58px;
       object-fit: contain;
       border-radius: 50%;
     }
 
-    .logo h1 {
-      font-size: 28px;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text strong {
+      font-size: 24px;
       letter-spacing: 1px;
+    }
+
+    .logo-text span {
+      font-size: 12px;
+      color: #777;
+      margin-top: 4px;
     }
 
     nav {
       display: flex;
       gap: 32px;
+      align-items: center;
     }
 
     nav a {
       text-decoration: none;
       color: #222;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: color 0.25s ease;
     }
 
     nav a:hover {
-      color: #b8232f;
+      color: #b9252f;
     }
 
-    .hero {
+    /* =========================
+       Home First Screen
+    ========================= */
+
+    #home {
       min-height: 100vh;
-      padding: 160px 80px 80px;
+      padding: 120px 70px 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      background: #efefef;
+      background:
+        radial-gradient(circle at top left, rgba(185, 37, 47, 0.14), transparent 35%),
+        linear-gradient(135deg, #f8f1df 0%, #efe5c8 45%, #f8f5ed 100%);
     }
 
-    .hero-content {
-      max-width: 900px;
+    .hero-container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
     }
 
-    .hero-content h2 {
-      font-size: 64px;
-      margin-bottom: 20px;
+    .hero-label {
+      display: inline-block;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: rgba(185, 37, 47, 0.1);
+      color: #b9252f;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 26px;
+    }
+
+    .hero-content h1 {
+      font-size: 68px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      color: #1f1f1f;
+    }
+
+    .hero-content h1 span {
+      color: #b9252f;
     }
 
     .hero-content p {
-      font-size: 24px;
+      font-size: 21px;
+      line-height: 1.8;
       color: #555;
-      line-height: 1.6;
+      max-width: 680px;
+      margin-bottom: 36px;
     }
 
-    .hero-content .btn {
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
       display: inline-block;
-      margin-top: 36px;
-      padding: 14px 34px;
-      background: #b8232f;
-      color: white;
+      padding: 15px 34px;
       border-radius: 999px;
       text-decoration: none;
       font-weight: bold;
+      transition: all 0.25s ease;
     }
 
-    .hero-content .btn:hover {
-      background: #941c26;
+    .btn-primary {
+      background: #b9252f;
+      color: white;
+      box-shadow: 0 12px 28px rgba(185, 37, 47, 0.28);
     }
 
-    @media (max-width: 768px) {
+    .btn-primary:hover {
+      background: #961d26;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      color: #b9252f;
+      border: 2px solid #b9252f;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: #b9252f;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 34px;
+      padding: 42px 34px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.12);
+      text-align: center;
+    }
+
+    .hero-card img {
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin-bottom: 28px;
+    }
+
+    .hero-card h2 {
+      font-size: 30px;
+      margin-bottom: 14px;
+    }
+
+    .hero-card p {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       Normal Sections
+    ========================= */
+
+    section {
+      padding: 100px 70px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 42px;
+      margin-bottom: 22px;
+      color: #222;
+    }
+
+    .section-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #555;
+      max-width: 800px;
+    }
+
+    #about {
+      background: #fffaf0;
+    }
+
+    #events {
+      background: #f6f2e8;
+    }
+
+    #membership {
+      background: #fffaf0;
+    }
+
+    #contact {
+      background: #1f1f1f;
+      color: white;
+    }
+
+    #contact .section-title {
+      color: white;
+    }
+
+    #contact .section-text {
+      color: #ddd;
+    }
+
+    .social-grid {
+      margin-top: 36px;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .social-card {
+      width: 190px;
+      padding: 20px;
+      border-radius: 22px;
+      background: white;
+      color: #222;
+      text-align: center;
+    }
+
+    .social-card img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .social-card strong {
+      display: block;
+      font-size: 17px;
+    }
+
+    footer {
+      padding: 28px 70px;
+      text-align: center;
+      background: #151515;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* =========================
+       Responsive
+    ========================= */
+
+    @media (max-width: 900px) {
       header {
+        height: auto;
         padding: 18px 24px;
         flex-direction: column;
-        gap: 16px;
+        gap: 18px;
       }
 
       nav {
@@ -190,16 +380,34 @@
         justify-content: center;
       }
 
-      .hero {
-        padding: 180px 24px 60px;
+      #home {
+        padding: 170px 24px 70px;
       }
 
-      .hero-content h2 {
-        font-size: 40px;
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 44px;
       }
 
       .hero-content p {
         font-size: 18px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      .section-title {
+        font-size: 34px;
       }
     }
   </style>
@@ -207,51 +415,141 @@
 
 <body>
 
-  <!-- Opening Animation -->
+  <!-- 开场动画：上下分离 -->
   <div id="opening-screen">
     <div class="opening-half top-half">
-      <img src="images/opening.gif" alt="MCSA Opening Animation">
+      <img src="images/opening.gif" alt="Opening Animation">
     </div>
 
     <div class="opening-half bottom-half">
-      <img src="images/opening.gif" alt="MCSA Opening Animation">
+      <img src="images/opening.gif" alt="Opening Animation">
     </div>
   </div>
 
-  <!-- Website Content -->
+  <!-- Header -->
   <header>
-    <div class="logo">
+    <div class="logo-area">
       <img src="images/logo.png" alt="MCSA Logo">
-      <h1>MCSA</h1>
+      <div class="logo-text">
+        <strong>MCSA</strong>
+        <span>Monash Chinese Students Association</span>
+      </div>
     </div>
 
     <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#events">Events</a>
-      <a href="#membership">Membership</a>
-      <a href="#contact">Contact</a>
+      <a href="#home">首页</a>
+      <a href="#about">关于我们</a>
+      <a href="#events">活动</a>
+      <a href="#membership">会员</a>
+      <a href="#contact">联系我们</a>
     </nav>
   </header>
 
-  <!-- First Screen: Home -->
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h2>Welcome to MCSA</h2>
-      <p>Monash Chinese Students Association</p>
-      <a href="#about" class="btn">Explore More</a>
+  <!-- 固定第一个界面：Home -->
+  <section id="home">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-label">Welcome to MCSA</div>
+
+        <h1>
+          Monash Chinese<br>
+          Students <span>Association</span>
+        </h1>
+
+        <p>
+          MCSA 致力于连接 Monash 华人学生群体，提供活动、社交、校园支持与文化交流平台。
+          在这里，你可以认识朋友、参与活动、了解校园资讯，并找到属于自己的社区。
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#about" class="btn btn-primary">了解我们</a>
+          <a href="#contact" class="btn btn-secondary">联系我们</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="images/logo.png" alt="MCSA Logo">
+        <h2>MCSA</h2>
+        <p>
+          A student community for connection, culture, events and support at Monash University.
+        </p>
+      </div>
     </div>
   </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-inner">
+      <h2 class="section-title">关于我们</h2>
+      <p class="section-text">
+        MCSA 是 Monash 华人学生社群平台，面向在校学生组织活动、分享校园信息，
+        帮助新老同学更好地融入校园生活。
+      </p>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section id="events">
+    <div class="section-inner">
+      <h2 class="section-title">活动</h2>
+      <p class="section-text">
+        我们会定期举办迎新、社交、节日庆祝、职业分享、文化交流等活动。
+        更多活动信息会通过 Instagram、微信和小红书发布。
+      </p>
+    </div>
+  </section>
+
+  <!-- Membership -->
+  <section id="membership">
+    <div class="section-inner">
+      <h2 class="section-title">会员</h2>
+      <p class="section-text">
+        加入 MCSA，你可以第一时间获取活动信息、认识更多 Monash 同学，
+        并参与社团组织的各类校园活动。
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-inner">
+      <h2 class="section-title">联系我们</h2>
+      <p class="section-text">
+        关注我们的社交媒体，获取最新活动和校园资讯。
+      </p>
+
+      <div class="social-grid">
+        <div class="social-card">
+          <img src="images/ins.jpg" alt="Instagram QR Code">
+          <strong>Instagram</strong>
+        </div>
+
+        <div class="social-card">
+          <img src="images/wechat.jpg" alt="WeChat QR Code">
+          <strong>WeChat</strong>
+        </div>
+
+        <div class="social-card">
+          <img src="images/xhs.jpg" alt="Xiaohongshu QR Code">
+          <strong>小红书</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 MCSA. All rights reserved.
+  </footer>
 
   <script>
     window.addEventListener("load", function () {
       const opening = document.getElementById("opening-screen");
 
-      setTimeout(() => {
+      setTimeout(function () {
         opening.classList.add("open");
       }, 2200);
 
-      setTimeout(() => {
+      setTimeout(function () {
         opening.classList.add("hide");
       }, 3800);
     });
