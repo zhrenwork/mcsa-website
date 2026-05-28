@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCSA | Monash Chinese Students Association</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #222;
+      background: #ffffff;
+    }
+
+    header {
+      background: #8b0000;
+      color: white;
+      padding: 24px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 24px;
+      font-weight: bold;
+    }
+
+    .hero {
+      padding: 90px 60px;
+      background: #f7f2f2;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      color: #8b0000;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-block;
+      background: #8b0000;
+      color: white;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 60px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section h2 {
+      color: #8b0000;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #fafafa;
+      padding: 24px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+
+      .hero {
+        padding: 60px 24px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      section {
+        padding: 40px 24px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MCSA</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#events">Events</a>
+      <a href="#join">Join Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h2>Monash Chinese Students Association</h2>
+    <p>
+      Connecting Chinese students at Monash University through culture,
+      community, events, and student support.
+    </p>
+    <a class="button" href="#join">Join MCSA</a>
+  </div>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      MCSA is a student community at Monash University dedicated to supporting
+      Chinese students and promoting cultural exchange. We organise social,
+      academic, cultural, and career-related events throughout the year.
+    </p>
+  </section>
+
+  <section id="events">
+    <h2>Our Events</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Social Events</h3>
+        <p>Meet new friends, join gatherings, and connect with the community.</p>
+      </div>
+      <div class="card">
+        <h3>Cultural Events</h3>
+        <p>Celebrate Chinese festivals and promote cultural exchange on campus.</p>
+      </div>
+      <div class="card">
+        <h3>Career & Academic Support</h3>
+        <p>Workshops, sharing sessions, and opportunities for student growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <h2>Join Us</h2>
+    <p>
+      Interested in becoming a member or joining our committee? Follow our
+      updates and get involved in upcoming events.
+    </p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: mcsa@example.com</p>
+    <p>Instagram / WeChat / RedNote: Coming soon</p>
+  </section>
+
+  <footer>
+    <p>© 2026 MCSA. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
