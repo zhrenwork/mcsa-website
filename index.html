@@ -25,7 +25,7 @@
     }
 
     /* =========================
-       Premium Opening Animation - Left Right Curtain
+       Premium Opening Animation - Left Right Curtain FIXED
     ========================= */
 
     #opening-screen {
@@ -64,6 +64,10 @@
       right: 0;
     }
 
+    /*
+      背景层：
+      用同一个 opening.gif 放大模糊，填充空白区域。
+    */
     .opening-bg {
       position: absolute;
       top: 0;
@@ -75,10 +79,23 @@
       z-index: 1;
     }
 
+    .left-half .opening-bg {
+      left: 0;
+    }
+
+    .right-half .opening-bg {
+      right: 0;
+    }
+
+    /*
+      主 GIF：
+      关键点：左右两边必须以屏幕中线为同一个中心点。
+      这样龙的左右两半才不会错位。
+    */
     .opening-main {
       position: absolute;
       top: 0;
-      width: min(88vw, 1050px);
+      width: min(96vw, 1200px);
       height: 100vh;
       object-fit: contain;
       z-index: 3;
@@ -88,28 +105,28 @@
       animation: openingFocus 2.2s ease forwards;
     }
 
-    .left-half .opening-bg {
-      left: 0;
-      transform: scale(1.12);
-      transform-origin: center center;
-    }
-
-    .right-half .opening-bg {
-      right: 0;
-      transform: scale(1.12);
-      transform-origin: center center;
-    }
-
+    /*
+      左半边：
+      图片中心放在左幕布的右边缘，也就是屏幕中线。
+    */
     .left-half .opening-main {
-      left: 50vw;
-      transform: translateX(-50%) scale(0.96);
+      left: 100%;
+      transform: translateX(-50%);
     }
 
+    /*
+      右半边：
+      图片中心放在右幕布的左边缘，也就是屏幕中线。
+    */
     .right-half .opening-main {
-      right: 50vw;
-      transform: translateX(50%) scale(0.96);
+      left: 0;
+      transform: translateX(-50%);
     }
 
+    /*
+      注意：这个动画不能改 transform。
+      否则左右两半又会错位。
+    */
     @keyframes openingFocus {
       0% {
         opacity: 0;
@@ -131,6 +148,10 @@
       }
     }
 
+    /*
+      柔光遮罩，让 opening.gif 看起来更高级。
+      没有中间线。
+    */
     #opening-screen::before {
       content: "";
       position: absolute;
@@ -147,6 +168,9 @@
       display: none;
     }
 
+    /*
+      左右幕布打开
+    */
     #opening-screen.open .left-half {
       transform: translateX(-105%);
       filter: brightness(1.03);
@@ -161,6 +185,9 @@
       display: none;
     }
 
+    /*
+      首页淡入
+    */
     .page-content {
       opacity: 0;
       transform: translateY(16px);
@@ -558,7 +585,7 @@
       }
 
       .opening-main {
-        width: min(96vw, 900px);
+        width: min(100vw, 900px);
       }
 
       .opening-bg {
@@ -571,7 +598,7 @@
 
 <body>
 
-  <!-- 开场动画：左右高级幕布打开，使用原 opening.gif -->
+  <!-- 开场动画：左右高级幕布打开，左右主体已对齐 -->
   <div id="opening-screen">
     <div class="opening-half left-half">
       <img class="opening-bg" src="images/opening.gif" alt="">
