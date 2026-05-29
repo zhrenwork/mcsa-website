@@ -25,6 +25,72 @@
     }
 
     /* =========================
+       Language Switch
+    ========================= */
+
+    .lang-en,
+    .lang-tc {
+      display: none;
+    }
+
+    body.lang-en-mode .lang-zh,
+    body.lang-en-mode .lang-tc {
+      display: none;
+    }
+
+    body.lang-en-mode .lang-en {
+      display: inline;
+    }
+
+    body.lang-tc-mode .lang-zh,
+    body.lang-tc-mode .lang-en {
+      display: none;
+    }
+
+    body.lang-tc-mode .lang-tc {
+      display: inline;
+    }
+
+    body.lang-zh-mode .lang-en,
+    body.lang-zh-mode .lang-tc {
+      display: none;
+    }
+
+    body.lang-zh-mode .lang-zh {
+      display: inline;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(185, 28, 28, 0.35);
+      background: #ffffff;
+      color: #b91c1c;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .lang-btn:hover {
+      background: #b91c1c;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .lang-btn.active {
+      background: #b91c1c;
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(185, 28, 28, 0.22);
+    }
+
+    /* =========================
        Premium Opening Animation
        完整 GIF，不切割，避免龙错位
     ========================= */
@@ -201,7 +267,7 @@
 
     nav {
       display: flex;
-      gap: 34px;
+      gap: 28px;
       align-items: center;
     }
 
@@ -213,6 +279,7 @@
       letter-spacing: 0.3px;
       transition: color 0.25s ease;
       position: relative;
+      white-space: nowrap;
     }
 
     nav a::after {
@@ -477,6 +544,21 @@
        Responsive
     ========================= */
 
+    @media (max-width: 1100px) {
+      header {
+        padding: 0 36px;
+      }
+
+      nav {
+        gap: 18px;
+      }
+
+      .lang-btn {
+        padding: 7px 10px;
+        font-size: 12px;
+      }
+    }
+
     @media (max-width: 900px) {
       header {
         height: auto;
@@ -491,8 +573,13 @@
         justify-content: center;
       }
 
+      .lang-switch {
+        width: 100%;
+        justify-content: center;
+      }
+
       #home {
-        padding: 180px 24px 75px;
+        padding: 210px 24px 75px;
       }
 
       .hero-container {
@@ -519,11 +606,16 @@
 
       .section-title {
         font-size: 34px;
+        text-align: center;
       }
 
       .section-title::after {
         margin-left: auto;
         margin-right: auto;
+      }
+
+      .section-text {
+        text-align: center;
       }
 
       .social-grid {
@@ -543,7 +635,7 @@
   </style>
 </head>
 
-<body>
+<body class="lang-zh-mode">
 
   <!-- 开场动画：使用原版 GIF 转成的 MP4，只播放一遍 -->
   <div id="opening-screen">
@@ -578,16 +670,50 @@
         <img src="images/logo.png" alt="MCSA Logo">
         <div class="logo-text">
           <strong>MCSA</strong>
-          <span>Monash Chinese Students Association</span>
+          <span>
+            <span class="lang-zh">Monash 华人学生会</span>
+            <span class="lang-en">Monash Chinese Students Association</span>
+            <span class="lang-tc">Monash 華人學生會</span>
+          </span>
         </div>
       </div>
 
       <nav>
-        <a href="#home">首页</a>
-        <a href="#about">关于我们</a>
-        <a href="#events">活动</a>
-        <a href="#membership">会员</a>
-        <a href="#contact">联系我们</a>
+        <a href="#home">
+          <span class="lang-zh">首页</span>
+          <span class="lang-en">Home</span>
+          <span class="lang-tc">首頁</span>
+        </a>
+
+        <a href="#about">
+          <span class="lang-zh">关于我们</span>
+          <span class="lang-en">About</span>
+          <span class="lang-tc">關於我們</span>
+        </a>
+
+        <a href="#events">
+          <span class="lang-zh">活动</span>
+          <span class="lang-en">Events</span>
+          <span class="lang-tc">活動</span>
+        </a>
+
+        <a href="#membership">
+          <span class="lang-zh">会员</span>
+          <span class="lang-en">Membership</span>
+          <span class="lang-tc">會員</span>
+        </a>
+
+        <a href="#contact">
+          <span class="lang-zh">联系我们</span>
+          <span class="lang-en">Contact</span>
+          <span class="lang-tc">聯絡我們</span>
+        </a>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" id="btn-zh" onclick="setLanguage('zh')">中文</button>
+          <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" id="btn-tc" onclick="setLanguage('tc')">繁中</button>
+        </div>
       </nav>
     </header>
 
@@ -595,21 +721,59 @@
     <section id="home">
       <div class="hero-container">
         <div class="hero-content">
-          <div class="hero-label">Welcome to MCSA</div>
+          <div class="hero-label">
+            <span class="lang-zh">欢迎来到 MCSA</span>
+            <span class="lang-en">Welcome to MCSA</span>
+            <span class="lang-tc">歡迎來到 MCSA</span>
+          </div>
 
           <h1>
-            Monash <span class="highlight-red">Chinese</span><br>
-            Students Association
+            <span class="lang-zh">
+              Monash <span class="highlight-red">Chinese</span><br>
+              Students Association
+            </span>
+
+            <span class="lang-en">
+              Monash <span class="highlight-red">Chinese</span><br>
+              Students Association
+            </span>
+
+            <span class="lang-tc">
+              Monash <span class="highlight-red">Chinese</span><br>
+              Students Association
+            </span>
           </h1>
 
           <p>
-            MCSA 致力于连接 Monash 华人学生群体，提供活动、社交、校园支持与文化交流平台。
-            在这里，你可以认识朋友、参与活动、了解校园资讯，并找到属于自己的社区。
+            <span class="lang-zh">
+              MCSA 致力于连接 Monash 华人学生群体，提供活动、社交、校园支持与文化交流平台。
+              在这里，你可以认识朋友、参与活动、了解校园资讯，并找到属于自己的社区。
+            </span>
+
+            <span class="lang-en">
+              MCSA connects the Chinese student community at Monash University through events,
+              social opportunities, campus support and cultural exchange. Here, you can meet new friends,
+              join activities, access campus updates and find a community that feels like home.
+            </span>
+
+            <span class="lang-tc">
+              MCSA 致力於連結 Monash 華人學生群體，提供活動、社交、校園支援與文化交流平台。
+              在這裡，你可以認識朋友、參與活動、了解校園資訊，並找到屬於自己的社群。
+            </span>
           </p>
 
           <div class="hero-buttons">
-            <a href="#about" class="btn btn-primary">了解我们</a>
-            <a href="#contact" class="btn btn-secondary">联系我们</a>
+            <a href="#about" class="btn btn-primary">
+              <span class="lang-zh">了解我们</span>
+              <span class="lang-en">Learn More</span>
+              <span class="lang-tc">了解我們</span>
+            </a>
+
+            <a href="#contact" class="btn btn-secondary">
+              <span class="lang-zh">联系我们</span>
+              <span class="lang-en">Contact Us</span>
+              <span class="lang-tc">聯絡我們</span>
+            </a>
           </div>
         </div>
 
@@ -617,7 +781,17 @@
           <img src="images/logo.png" alt="MCSA Logo">
           <h2>MCSA</h2>
           <p>
-            A student community for connection, culture, events and support at Monash University.
+            <span class="lang-zh">
+              一个属于 Monash 学生的社群，连接文化、活动、朋友与校园支持。
+            </span>
+
+            <span class="lang-en">
+              A student community for connection, culture, events and support at Monash University.
+            </span>
+
+            <span class="lang-tc">
+              一個屬於 Monash 學生的社群，連結文化、活動、朋友與校園支援。
+            </span>
           </p>
         </div>
       </div>
@@ -626,10 +800,28 @@
     <!-- About -->
     <section id="about">
       <div class="section-inner">
-        <h2 class="section-title">关于我们</h2>
+        <h2 class="section-title">
+          <span class="lang-zh">关于我们</span>
+          <span class="lang-en">About Us</span>
+          <span class="lang-tc">關於我們</span>
+        </h2>
+
         <p class="section-text">
-          MCSA 是 Monash 华人学生社群平台，面向在校学生组织活动、分享校园信息，
-          帮助新老同学更好地融入校园生活。
+          <span class="lang-zh">
+            MCSA 是 Monash 华人学生社群平台，面向在校学生组织活动、分享校园信息，
+            帮助新老同学更好地融入校园生活。
+          </span>
+
+          <span class="lang-en">
+            MCSA is a Chinese student community platform at Monash University. We organise events,
+            share campus information and help both new and current students become more connected
+            with university life.
+          </span>
+
+          <span class="lang-tc">
+            MCSA 是 Monash 華人學生社群平台，面向在校學生組織活動、分享校園資訊，
+            幫助新老同學更好地融入校園生活。
+          </span>
         </p>
       </div>
     </section>
@@ -637,10 +829,28 @@
     <!-- Events -->
     <section id="events">
       <div class="section-inner">
-        <h2 class="section-title">活动</h2>
+        <h2 class="section-title">
+          <span class="lang-zh">活动</span>
+          <span class="lang-en">Events</span>
+          <span class="lang-tc">活動</span>
+        </h2>
+
         <p class="section-text">
-          我们会定期举办迎新、社交、节日庆祝、职业分享、文化交流等活动。
-          更多活动信息会通过 Instagram、微信和小红书发布。
+          <span class="lang-zh">
+            我们会定期举办迎新、社交、节日庆祝、职业分享、文化交流等活动。
+            更多活动信息会通过 Instagram、微信和小红书发布。
+          </span>
+
+          <span class="lang-en">
+            We regularly host orientation events, social gatherings, festival celebrations,
+            career sharing sessions and cultural exchange activities. More updates will be posted
+            on Instagram, WeChat and Xiaohongshu.
+          </span>
+
+          <span class="lang-tc">
+            我們會定期舉辦迎新、社交、節日慶祝、職業分享、文化交流等活動。
+            更多活動資訊會透過 Instagram、微信和小紅書發布。
+          </span>
         </p>
       </div>
     </section>
@@ -648,10 +858,27 @@
     <!-- Membership -->
     <section id="membership">
       <div class="section-inner">
-        <h2 class="section-title">会员</h2>
+        <h2 class="section-title">
+          <span class="lang-zh">会员</span>
+          <span class="lang-en">Membership</span>
+          <span class="lang-tc">會員</span>
+        </h2>
+
         <p class="section-text">
-          加入 MCSA，你可以第一时间获取活动信息、认识更多 Monash 同学，
-          并参与社团组织的各类校园活动。
+          <span class="lang-zh">
+            加入 MCSA，你可以第一时间获取活动信息、认识更多 Monash 同学，
+            并参与社团组织的各类校园活动。
+          </span>
+
+          <span class="lang-en">
+            By joining MCSA, you can receive event updates, meet more Monash students and take part
+            in a wide range of student-led campus activities.
+          </span>
+
+          <span class="lang-tc">
+            加入 MCSA，你可以第一時間獲取活動資訊、認識更多 Monash 同學，
+            並參與社團組織的各類校園活動。
+          </span>
         </p>
       </div>
     </section>
@@ -659,9 +886,24 @@
     <!-- Contact -->
     <section id="contact">
       <div class="section-inner">
-        <h2 class="section-title">联系我们</h2>
+        <h2 class="section-title">
+          <span class="lang-zh">联系我们</span>
+          <span class="lang-en">Contact Us</span>
+          <span class="lang-tc">聯絡我們</span>
+        </h2>
+
         <p class="section-text">
-          关注我们的社交媒体，获取最新活动和校园资讯。
+          <span class="lang-zh">
+            关注我们的社交媒体，获取最新活动和校园资讯。
+          </span>
+
+          <span class="lang-en">
+            Follow our social media channels to receive the latest event updates and campus information.
+          </span>
+
+          <span class="lang-tc">
+            關注我們的社交媒體，獲取最新活動與校園資訊。
+          </span>
         </p>
 
         <div class="social-grid">
@@ -684,7 +926,9 @@
     </section>
 
     <footer>
-      © 2026 MCSA. All rights reserved.
+      <span class="lang-zh">© 2026 MCSA。保留所有权利。</span>
+      <span class="lang-en">© 2026 MCSA. All rights reserved.</span>
+      <span class="lang-tc">© 2026 MCSA。保留所有權利。</span>
     </footer>
 
   </div>
@@ -702,7 +946,41 @@
       window.scrollTo(0, 0);
     }
 
+    function setLanguage(language) {
+      const body = document.body;
+
+      body.classList.remove("lang-zh-mode", "lang-en-mode", "lang-tc-mode");
+
+      const zhButton = document.getElementById("btn-zh");
+      const enButton = document.getElementById("btn-en");
+      const tcButton = document.getElementById("btn-tc");
+
+      zhButton.classList.remove("active");
+      enButton.classList.remove("active");
+      tcButton.classList.remove("active");
+
+      if (language === "en") {
+        body.classList.add("lang-en-mode");
+        enButton.classList.add("active");
+        document.documentElement.lang = "en";
+        localStorage.setItem("mcsa-language", "en");
+      } else if (language === "tc") {
+        body.classList.add("lang-tc-mode");
+        tcButton.classList.add("active");
+        document.documentElement.lang = "zh-Hant";
+        localStorage.setItem("mcsa-language", "tc");
+      } else {
+        body.classList.add("lang-zh-mode");
+        zhButton.classList.add("active");
+        document.documentElement.lang = "zh-CN";
+        localStorage.setItem("mcsa-language", "zh");
+      }
+    }
+
     window.addEventListener("load", function () {
+      const savedLanguage = localStorage.getItem("mcsa-language") || "zh";
+      setLanguage(savedLanguage);
+
       const opening = document.getElementById("opening-screen");
       const pageContent = document.getElementById("page-content");
       const openingVideo = document.getElementById("opening-video");
