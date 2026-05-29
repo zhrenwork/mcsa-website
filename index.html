@@ -26,6 +26,7 @@
 
     /* =========================
        Language Switch
+       Single Premium Dropdown
     ========================= */
 
     .lang-en,
@@ -61,33 +62,100 @@
     }
 
     .lang-switch {
+      position: relative;
       display: flex;
-      gap: 8px;
       align-items: center;
     }
 
-    .lang-btn {
-      padding: 8px 13px;
+    .lang-current {
+      min-width: 116px;
+      height: 42px;
+      padding: 0 16px;
       border-radius: 999px;
-      border: 1px solid rgba(185, 28, 28, 0.35);
-      background: #ffffff;
+      border: 1px solid rgba(185, 28, 28, 0.24);
+      background: linear-gradient(135deg, #ffffff 0%, #fff7f7 100%);
       color: #b91c1c;
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(185, 28, 28, 0.10);
       transition: all 0.25s ease;
     }
 
-    .lang-btn:hover {
-      background: #b91c1c;
-      color: #ffffff;
+    .lang-current:hover {
+      border-color: rgba(185, 28, 28, 0.55);
+      box-shadow: 0 12px 30px rgba(185, 28, 28, 0.16);
       transform: translateY(-1px);
     }
 
-    .lang-btn.active {
+    .lang-current .arrow {
+      font-size: 11px;
+      transition: transform 0.25s ease;
+    }
+
+    .lang-switch.open .lang-current .arrow {
+      transform: rotate(180deg);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: 52px;
+      right: 0;
+      width: 152px;
+      padding: 8px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(185, 28, 28, 0.12);
+      box-shadow: 0 18px 45px rgba(17, 24, 39, 0.16);
+      display: none;
+      z-index: 300;
+    }
+
+    .lang-switch.open .lang-menu {
+      display: block;
+      animation: langMenuIn 0.22s ease forwards;
+    }
+
+    @keyframes langMenuIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .lang-option {
+      width: 100%;
+      height: 38px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      padding: 0 12px;
+      transition: all 0.2s ease;
+    }
+
+    .lang-option:hover {
+      background: #fff1f1;
+      color: #b91c1c;
+    }
+
+    .lang-option.active {
       background: #b91c1c;
       color: #ffffff;
-      box-shadow: 0 8px 18px rgba(185, 28, 28, 0.22);
     }
 
     /* =========================
@@ -553,9 +621,11 @@
         gap: 18px;
       }
 
-      .lang-btn {
-        padding: 7px 10px;
-        font-size: 12px;
+      .lang-current {
+        min-width: 104px;
+        height: 40px;
+        padding: 0 13px;
+        font-size: 13px;
       }
     }
 
@@ -574,8 +644,29 @@
       }
 
       .lang-switch {
-        width: 100%;
         justify-content: center;
+      }
+
+      .lang-menu {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+      }
+
+      .lang-switch.open .lang-menu {
+        animation: langMenuInMobile 0.22s ease forwards;
+      }
+
+      @keyframes langMenuInMobile {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-8px) scale(0.98);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0) scale(1);
+        }
       }
 
       #home {
@@ -709,10 +800,25 @@
           <span class="lang-tc">聯絡我們</span>
         </a>
 
-        <div class="lang-switch">
-          <button class="lang-btn active" id="btn-zh" onclick="setLanguage('zh')">中文</button>
-          <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
-          <button class="lang-btn" id="btn-tc" onclick="setLanguage('tc')">繁中</button>
+        <div class="lang-switch" id="lang-switch">
+          <button class="lang-current" type="button" onclick="toggleLanguageMenu()">
+            <span id="current-language">中文</span>
+            <span class="arrow">▼</span>
+          </button>
+
+          <div class="lang-menu">
+            <button class="lang-option active" id="btn-zh" type="button" onclick="setLanguage('zh')">
+              中文
+            </button>
+
+            <button class="lang-option" id="btn-en" type="button" onclick="setLanguage('en')">
+              English
+            </button>
+
+            <button class="lang-option" id="btn-tc" type="button" onclick="setLanguage('tc')">
+              繁中
+            </button>
+          </div>
         </div>
       </nav>
     </header>
@@ -946,6 +1052,19 @@
       window.scrollTo(0, 0);
     }
 
+    function toggleLanguageMenu() {
+      const langSwitch = document.getElementById("lang-switch");
+      langSwitch.classList.toggle("open");
+    }
+
+    function closeLanguageMenu() {
+      const langSwitch = document.getElementById("lang-switch");
+
+      if (langSwitch) {
+        langSwitch.classList.remove("open");
+      }
+    }
+
     function setLanguage(language) {
       const body = document.body;
 
@@ -954,6 +1073,7 @@
       const zhButton = document.getElementById("btn-zh");
       const enButton = document.getElementById("btn-en");
       const tcButton = document.getElementById("btn-tc");
+      const currentLanguage = document.getElementById("current-language");
 
       zhButton.classList.remove("active");
       enButton.classList.remove("active");
@@ -962,20 +1082,33 @@
       if (language === "en") {
         body.classList.add("lang-en-mode");
         enButton.classList.add("active");
+        currentLanguage.textContent = "English";
         document.documentElement.lang = "en";
         localStorage.setItem("mcsa-language", "en");
       } else if (language === "tc") {
         body.classList.add("lang-tc-mode");
         tcButton.classList.add("active");
+        currentLanguage.textContent = "繁中";
         document.documentElement.lang = "zh-Hant";
         localStorage.setItem("mcsa-language", "tc");
       } else {
         body.classList.add("lang-zh-mode");
         zhButton.classList.add("active");
+        currentLanguage.textContent = "中文";
         document.documentElement.lang = "zh-CN";
         localStorage.setItem("mcsa-language", "zh");
       }
+
+      closeLanguageMenu();
     }
+
+    document.addEventListener("click", function (event) {
+      const langSwitch = document.getElementById("lang-switch");
+
+      if (langSwitch && !langSwitch.contains(event.target)) {
+        closeLanguageMenu();
+      }
+    });
 
     window.addEventListener("load", function () {
       const savedLanguage = localStorage.getItem("mcsa-language") || "zh";
