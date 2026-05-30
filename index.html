@@ -24,11 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* =========================
-       Language Switch
-       Premium Glass Selector
-    ========================= */
-
     .lang-en,
     .lang-tc {
       display: none;
@@ -74,8 +69,7 @@
       padding: 0 13px;
       border: 1px solid rgba(185, 28, 28, 0.18);
       border-radius: 999px;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 245, 245, 0.94));
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 245, 245, 0.94));
       color: #111827;
       cursor: pointer;
       display: flex;
@@ -245,10 +239,6 @@
       color: #ffffff;
     }
 
-    /* =========================
-       Opening Animation
-    ========================= */
-
     #opening-screen {
       position: fixed;
       inset: 0;
@@ -364,10 +354,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* =========================
-       Header
-    ========================= */
 
     header {
       position: fixed;
@@ -541,10 +527,6 @@
       color: #b91c1c;
     }
 
-    /* =========================
-       Home
-    ========================= */
-
     #home {
       min-height: 100vh;
       padding: 150px 72px 70px;
@@ -672,10 +654,6 @@
       line-height: 1.75;
     }
 
-    /* =========================
-       Sections
-    ========================= */
-
     section {
       padding: 105px 72px;
     }
@@ -706,6 +684,7 @@
       line-height: 1.85;
       color: #4b5563;
       max-width: 820px;
+      margin-bottom: 16px;
     }
 
     .section-light {
@@ -748,6 +727,239 @@
       font-size: 15px;
       line-height: 1.75;
       color: #6b7280;
+    }
+
+    /* =========================
+       Presidents Slider
+    ========================= */
+
+    .presidents-section {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(185, 28, 28, 0.12), transparent 32%),
+        radial-gradient(circle at 88% 25%, rgba(185, 28, 28, 0.10), transparent 30%),
+        linear-gradient(135deg, #fff5f5 0%, #ffffff 48%, #fff1f1 100%);
+    }
+
+    .presidents-section::before {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: rgba(185, 28, 28, 0.08);
+      right: -180px;
+      top: 80px;
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .presidents-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 42px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .presidents-header .section-title {
+      margin-bottom: 0;
+    }
+
+    .presidents-header .section-text {
+      max-width: 560px;
+      margin-bottom: 0;
+    }
+
+    .presidents-slider-shell {
+      position: relative;
+      z-index: 2;
+    }
+
+    .presidents-viewport {
+      overflow: hidden;
+      border-radius: 36px;
+      padding: 10px;
+    }
+
+    .presidents-track {
+      display: flex;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    .president-slide {
+      min-width: 100%;
+      padding: 10px;
+    }
+
+    .president-card {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      align-items: stretch;
+      overflow: hidden;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 245, 245, 0.96));
+      border: 1px solid rgba(185, 28, 28, 0.14);
+      box-shadow:
+        0 28px 80px rgba(127, 29, 29, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .president-photo-wrap {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+
+    .president-photo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0%, transparent 62%, rgba(255, 255, 255, 0.92) 100%),
+        linear-gradient(180deg, transparent 0%, rgba(69, 10, 10, 0.16) 100%);
+      pointer-events: none;
+    }
+
+    .president-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 0.65s ease;
+    }
+
+    .president-card:hover .president-photo {
+      transform: scale(1.07);
+    }
+
+    .president-info {
+      padding: 54px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .president-year {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: #fff1f1;
+      color: #b91c1c;
+      border: 1px solid rgba(185, 28, 28, 0.18);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 26px;
+    }
+
+    .president-role {
+      color: #991b1b;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+    }
+
+    .president-name {
+      font-size: 52px;
+      line-height: 1.05;
+      color: #111827;
+      margin-bottom: 22px;
+      letter-spacing: -1px;
+    }
+
+    .president-desc {
+      font-size: 17px;
+      line-height: 1.9;
+      color: #4b5563;
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+
+    .president-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .president-tag {
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(185, 28, 28, 0.08);
+      color: #7f1d1d;
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid rgba(185, 28, 28, 0.12);
+    }
+
+    .presidents-controls {
+      margin-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .president-arrows {
+      display: flex;
+      gap: 12px;
+    }
+
+    .president-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(185, 28, 28, 0.18);
+      background: rgba(255, 255, 255, 0.95);
+      color: #991b1b;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 900;
+      box-shadow: 0 14px 34px rgba(127, 29, 29, 0.10);
+      transition: all 0.25s ease;
+    }
+
+    .president-arrow:hover {
+      background: #b91c1c;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 42px rgba(185, 28, 28, 0.22);
+    }
+
+    .president-dots {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .president-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(185, 28, 28, 0.22);
+      transition: all 0.25s ease;
+    }
+
+    .president-dot.active {
+      width: 34px;
+      background: #b91c1c;
+      box-shadow: 0 8px 18px rgba(185, 28, 28, 0.22);
     }
 
     #contact {
@@ -809,10 +1021,6 @@
       font-size: 14px;
       border-top: 1px solid rgba(255, 255, 255, 0.14);
     }
-
-    /* =========================
-       Responsive
-    ========================= */
 
     @media (max-width: 1280px) {
       header {
@@ -945,13 +1153,78 @@
         filter: blur(18px) saturate(1.08) brightness(1.04);
         opacity: 0.62;
       }
+
+      .presidents-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .president-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .president-photo-wrap {
+        min-height: 420px;
+      }
+
+      .president-photo {
+        min-height: 420px;
+      }
+
+      .president-photo-wrap::after {
+        background:
+          linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.92) 100%),
+          linear-gradient(180deg, transparent 0%, rgba(69, 10, 10, 0.12) 100%);
+      }
+
+      .president-info {
+        padding: 36px 28px 42px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .president-name {
+        font-size: 42px;
+      }
+
+      .president-desc {
+        font-size: 16px;
+      }
+
+      .presidents-controls {
+        flex-direction: column-reverse;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .president-photo-wrap {
+        min-height: 360px;
+      }
+
+      .president-photo {
+        min-height: 360px;
+      }
+
+      .president-name {
+        font-size: 36px;
+      }
+
+      .president-info {
+        padding: 30px 22px 36px;
+      }
+
+      .president-arrow {
+        width: 44px;
+        height: 44px;
+      }
     }
   </style>
 </head>
 
 <body class="lang-zh-mode">
 
-  <!-- 开场动画 -->
   <div id="opening-screen">
     <video
       class="opening-bg"
@@ -978,7 +1251,6 @@
 
   <div class="page-content" id="page-content">
 
-    <!-- Header -->
     <header>
       <a class="logo-area" href="#home">
         <img src="images/logo.png" alt="MCSA Logo">
@@ -1048,9 +1320,9 @@
           </div>
 
           <a href="#presidents">
-            <span class="lang-zh">历届主席</span>
-            <span class="lang-en">Presidents</span>
-            <span class="lang-tc">歷屆主席</span>
+            <span class="lang-zh">历届主席团</span>
+            <span class="lang-en">Presidium</span>
+            <span class="lang-tc">歷屆主席團</span>
           </a>
 
           <a href="#discounts">
@@ -1113,7 +1385,6 @@
       </div>
     </header>
 
-    <!-- Home -->
     <section id="home">
       <div class="hero-container">
         <div class="hero-content">
@@ -1193,7 +1464,6 @@
       </div>
     </section>
 
-    <!-- About -->
     <section id="about" class="section-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1204,25 +1474,34 @@
 
         <p class="section-text">
           <span class="lang-zh">
-            MCSA 是 Monash 华人学生社群平台，面向在校学生组织活动、分享校园信息，
-            帮助新老同学更好地融入校园生活。
+            MCSA于2000年成立，总部位于蒙纳士大学 Caulfield 校区，是由蒙纳士中国留学生自发组建并经蒙纳士大学校方认证的学生社团。同时也是中国驻墨尔本总领事馆教育处在蒙纳士校内唯一认证的中国海外留学生组织。
           </span>
 
           <span class="lang-en">
-            MCSA is a Chinese student community platform at Monash University. We organise events,
-            share campus information and help both new and current students become more connected
-            with university life.
+            Founded in 2000, MCSA is based at Monash University's Caulfield campus. It was established by Chinese international students at Monash and is officially recognised by the university.
           </span>
 
           <span class="lang-tc">
-            MCSA 是 Monash 華人學生社群平台，面向在校學生組織活動、分享校園資訊，
-            幫助新老同學更好地融入校園生活。
+            MCSA於2000年成立，總部位於蒙納士大學 Caulfield 校區，是由蒙納士中國留學生自發組建並經蒙納士大學校方認證的學生社團。
+          </span>
+        </p>
+
+        <p class="section-text">
+          <span class="lang-zh">
+            蒙纳士中国学生会下设组织部、宣传部、市场部、秘书部、校友会、文体部六大部门。拥有微信公众号、Instagram、微博、小红书、抖音等诸多社交平台。
+          </span>
+
+          <span class="lang-en">
+            MCSA comprises six departments: Organisation, Publicity, Marketing, Secretariat, Alumni, and Sports &amp; Culture. We are active on WeChat, Instagram, Weibo, Xiaohongshu, Douyin and other platforms.
+          </span>
+
+          <span class="lang-tc">
+            蒙納士中國學生會下設組織部、宣傳部、市場部、秘書部、校友會、文體部六大部門。擁有微信公眾號、Instagram、微博、小紅書、抖音等諸多社交平台。
           </span>
         </p>
       </div>
     </section>
 
-    <!-- Latest Events -->
     <section id="latest-events" class="section-red-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1289,7 +1568,6 @@
       </div>
     </section>
 
-    <!-- Campus Info -->
     <section id="campus-info" class="section-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1314,7 +1592,6 @@
       </div>
     </section>
 
-    <!-- Past Review -->
     <section id="past-review" class="section-red-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1339,7 +1616,6 @@
       </div>
     </section>
 
-    <!-- Recruitment -->
     <section id="recruitment" class="section-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1365,7 +1641,6 @@
       </div>
     </section>
 
-    <!-- Departments -->
     <section id="departments" class="section-red-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1377,47 +1652,85 @@
         <div class="cards-grid">
           <div class="info-card">
             <h3>
-              <span class="lang-zh">活动部</span>
-              <span class="lang-en">Events Team</span>
-              <span class="lang-tc">活動部</span>
+              <span class="lang-zh">组织部</span>
+              <span class="lang-en">Organisation Department</span>
+              <span class="lang-tc">組織部</span>
             </h3>
             <p>
-              <span class="lang-zh">负责活动策划、现场执行、流程安排与活动体验。</span>
-              <span class="lang-en">Responsible for event planning, execution and student experience.</span>
-              <span class="lang-tc">負責活動策劃、現場執行、流程安排與活動體驗。</span>
+              <span class="lang-zh">MCSA 活动的策划组织部门，负责活动策划到执行的全过程。</span>
+              <span class="lang-en">The Organisation Department plans and runs MCSA events from start to finish.</span>
+              <span class="lang-tc">MCSA 活動的策劃組織部門，負責活動策劃到執行的全過程。</span>
             </p>
           </div>
 
           <div class="info-card">
             <h3>
-              <span class="lang-zh">媒体部</span>
-              <span class="lang-en">Media Team</span>
-              <span class="lang-tc">媒體部</span>
+              <span class="lang-zh">宣传部</span>
+              <span class="lang-en">Publicity Department</span>
+              <span class="lang-tc">宣傳部</span>
             </h3>
             <p>
-              <span class="lang-zh">负责社交媒体运营、图文发布、摄影摄像与内容传播。</span>
-              <span class="lang-en">Responsible for social media, photography, content creation and promotion.</span>
-              <span class="lang-tc">負責社交媒體營運、圖文發布、攝影攝像與內容傳播。</span>
+              <span class="lang-zh">管理学生会官方社交媒体，负责攻略、宣传与资讯发布。</span>
+              <span class="lang-en">Managing official social media channels, guides, promotion and student information.</span>
+              <span class="lang-tc">管理學生會官方社交媒體，負責攻略、宣傳與資訊發布。</span>
             </p>
           </div>
 
           <div class="info-card">
             <h3>
-              <span class="lang-zh">外联部</span>
-              <span class="lang-en">Partnerships Team</span>
-              <span class="lang-tc">外聯部</span>
+              <span class="lang-zh">市场部</span>
+              <span class="lang-en">Marketing Department</span>
+              <span class="lang-tc">市場部</span>
             </h3>
             <p>
-              <span class="lang-zh">负责商家合作、赞助沟通、资源对接与品牌关系维护。</span>
-              <span class="lang-en">Responsible for sponsorships, business partnerships and external relations.</span>
-              <span class="lang-tc">負責商家合作、贊助溝通、資源對接與品牌關係維護。</span>
+              <span class="lang-zh">负责赞助商、折扣商家、战略合作伙伴以及校外活动合作。</span>
+              <span class="lang-en">Handling sponsors, discount merchants, partners and off-campus collaborations.</span>
+              <span class="lang-tc">負責贊助商、折扣商家、戰略合作夥伴以及校外活動合作。</span>
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>
+              <span class="lang-zh">秘书部</span>
+              <span class="lang-en">Secretariat</span>
+              <span class="lang-tc">秘書部</span>
+            </h3>
+            <p>
+              <span class="lang-zh">负责上传下达、统筹分配、群组管理、会议记录与档案整理。</span>
+              <span class="lang-en">Coordinating communication, group management, meeting minutes and archives.</span>
+              <span class="lang-tc">負責上傳下達、統籌分配、群組管理、會議記錄與檔案整理。</span>
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>
+              <span class="lang-zh">校友会</span>
+              <span class="lang-en">Alumni Association</span>
+              <span class="lang-tc">校友會</span>
+            </h3>
+            <p>
+              <span class="lang-zh">连接在校生与全球校友，促进资源共享与经验传承。</span>
+              <span class="lang-en">Connecting current students with alumni worldwide through networking and mentorship.</span>
+              <span class="lang-tc">連接在校生與全球校友，促進資源共享與經驗傳承。</span>
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>
+              <span class="lang-zh">文体部</span>
+              <span class="lang-en">Sports &amp; Culture Department</span>
+              <span class="lang-tc">文體部</span>
+            </h3>
+            <p>
+              <span class="lang-zh">专注于 MCSA 文艺演出、体育活动和校园文化体验。</span>
+              <span class="lang-en">Focused on performances, sports events and cultural experiences.</span>
+              <span class="lang-tc">專注於 MCSA 文藝演出、體育活動和校園文化體驗。</span>
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Apply -->
     <section id="apply" class="section-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1443,32 +1756,179 @@
       </div>
     </section>
 
-    <!-- Presidents -->
-    <section id="presidents" class="section-red-light">
-      <div class="section-inner">
+<!-- Presidents -->
+<section id="presidents" class="presidents-section">
+  <div class="section-inner">
+    <div class="presidents-header">
+      <div>
         <h2 class="section-title">
-          <span class="lang-zh">历届主席</span>
-          <span class="lang-en">Past Presidents</span>
-          <span class="lang-tc">歷屆主席</span>
+          <span class="lang-zh">现任主席团</span>
+          <span class="lang-en">Current Presidium</span>
+          <span class="lang-tc">現任主席團</span>
         </h2>
-
-        <p class="section-text">
-          <span class="lang-zh">
-            记录 MCSA 历届主席与核心团队的贡献，延续社团文化与传承。
-          </span>
-
-          <span class="lang-en">
-            Honouring the contributions of past MCSA presidents and leadership teams.
-          </span>
-
-          <span class="lang-tc">
-            記錄 MCSA 歷屆主席與核心團隊的貢獻，延續社團文化與傳承。
-          </span>
-        </p>
       </div>
-    </section>
 
-    <!-- Discounts -->
+      <p class="section-text">
+        <span class="lang-zh">
+          展示 MCSA 现任主席团成员与核心领导团队，记录团队分工、责任与学生会发展方向。
+        </span>
+        <span class="lang-en">
+          Introducing the current MCSA presidium and leadership team, including their roles, responsibilities and direction for the association.
+        </span>
+        <span class="lang-tc">
+          展示 MCSA 現任主席團成員與核心領導團隊，記錄團隊分工、責任與學生會發展方向。
+        </span>
+      </p>
+    </div>
+
+    <div class="presidents-slider-shell">
+      <div class="presidents-viewport">
+        <div class="presidents-track" id="presidents-track">
+
+          <div class="president-slide">
+            <article class="president-card">
+              <div class="president-photo-wrap">
+                <img class="president-photo" src="images/president-pan-yue.jpg" alt="潘玥">
+              </div>
+
+              <div class="president-info">
+                <div class="president-year">
+                  <span class="lang-zh">MCSA 现任主席团</span>
+                  <span class="lang-en">Current MCSA Presidium</span>
+                  <span class="lang-tc">MCSA 現任主席團</span>
+                </div>
+
+                <div class="president-role">
+                  <span class="lang-zh">主席</span>
+                  <span class="lang-en">President</span>
+                  <span class="lang-tc">主席</span>
+                </div>
+
+                <h3 class="president-name">潘玥</h3>
+
+                <p class="president-desc">
+                  <span class="lang-zh">
+                    负责主席团整体统筹、学生会战略方向、对外形象与核心决策，带领团队推进 MCSA 的活动、服务与社区建设。
+                  </span>
+                  <span class="lang-en">
+                    Leading the overall direction of the presidium, strategic planning, external image and key decisions for MCSA.
+                  </span>
+                  <span class="lang-tc">
+                    負責主席團整體統籌、學生會戰略方向、對外形象與核心決策，帶領團隊推進 MCSA 的活動、服務與社群建設。
+                  </span>
+                </p>
+
+                <div class="president-tags">
+                  <span class="president-tag">Leadership</span>
+                  <span class="president-tag">Strategy</span>
+                  <span class="president-tag">Community</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="president-slide">
+            <article class="president-card">
+              <div class="president-photo-wrap">
+                <img class="president-photo" src="images/president-sheng-yihe.png" alt="盛一禾">
+              </div>
+
+              <div class="president-info">
+                <div class="president-year">
+                  <span class="lang-zh">MCSA 现任主席团</span>
+                  <span class="lang-en">Current MCSA Presidium</span>
+                  <span class="lang-tc">MCSA 現任主席團</span>
+                </div>
+
+                <div class="president-role">
+                  <span class="lang-zh">对外副主席</span>
+                  <span class="lang-en">Vice President External</span>
+                  <span class="lang-tc">對外副主席</span>
+                </div>
+
+                <h3 class="president-name">盛一禾</h3>
+
+                <p class="president-desc">
+                  <span class="lang-zh">
+                    负责对外合作、品牌沟通、资源连接与合作伙伴关系维护，帮助 MCSA 拓展更高质量的外部支持与机会。
+                  </span>
+                  <span class="lang-en">
+                    Responsible for external partnerships, brand communication, resource connection and partner relations.
+                  </span>
+                  <span class="lang-tc">
+                    負責對外合作、品牌溝通、資源連接與合作夥伴關係維護，幫助 MCSA 拓展更高質量的外部支持與機會。
+                  </span>
+                </p>
+
+                <div class="president-tags">
+                  <span class="president-tag">Partnership</span>
+                  <span class="president-tag">Branding</span>
+                  <span class="president-tag">Outreach</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="president-slide">
+            <article class="president-card">
+              <div class="president-photo-wrap">
+                <img class="president-photo" src="images/president-huang-xinuo.jpg" alt="黄希诺">
+              </div>
+
+              <div class="president-info">
+                <div class="president-year">
+                  <span class="lang-zh">MCSA 现任主席团</span>
+                  <span class="lang-en">Current MCSA Presidium</span>
+                  <span class="lang-tc">MCSA 現任主席團</span>
+                </div>
+
+                <div class="president-role">
+                  <span class="lang-zh">对内副主席</span>
+                  <span class="lang-en">Vice President Internal</span>
+                  <span class="lang-tc">對內副主席</span>
+                </div>
+
+                <h3 class="president-name">黄希诺</h3>
+
+                <p class="president-desc">
+                  <span class="lang-zh">
+                    负责内部管理、部门协调、团队建设与组织效率提升，保障学生会各部门稳定、高效地协作运行。
+                  </span>
+                  <span class="lang-en">
+                    Responsible for internal management, department coordination, team building and organisational efficiency.
+                  </span>
+                  <span class="lang-tc">
+                    負責內部管理、部門協調、團隊建設與組織效率提升，保障學生會各部門穩定、高效地協作運行。
+                  </span>
+                </p>
+
+                <div class="president-tags">
+                  <span class="president-tag">Operations</span>
+                  <span class="president-tag">Teamwork</span>
+                  <span class="president-tag">Management</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="presidents-controls">
+        <div class="president-arrows">
+          <button class="president-arrow" type="button" onclick="changePresidentSlide(-1)" aria-label="Previous president">‹</button>
+          <button class="president-arrow" type="button" onclick="changePresidentSlide(1)" aria-label="Next president">›</button>
+        </div>
+
+        <div class="president-dots" id="president-dots">
+          <button class="president-dot active" type="button" onclick="goToPresidentSlide(0)" aria-label="Go to slide 1"></button>
+          <button class="president-dot" type="button" onclick="goToPresidentSlide(1)" aria-label="Go to slide 2"></button>
+          <button class="president-dot" type="button" onclick="goToPresidentSlide(2)" aria-label="Go to slide 3"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     <section id="discounts" class="section-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1494,7 +1954,6 @@
       </div>
     </section>
 
-    <!-- Sponsors -->
     <section id="sponsors" class="section-red-light">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1520,7 +1979,6 @@
       </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact">
       <div class="section-inner">
         <h2 class="section-title">
@@ -1652,6 +2110,69 @@
       }
     });
 
+    let currentPresidentSlide = 0;
+    let presidentAutoPlay = null;
+
+    function updatePresidentSlider() {
+      const track = document.getElementById("presidents-track");
+      const dots = document.querySelectorAll(".president-dot");
+
+      if (!track) return;
+
+      track.style.transform = "translateX(-" + currentPresidentSlide * 100 + "%)";
+
+      dots.forEach(function (dot, index) {
+        if (index === currentPresidentSlide) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      });
+    }
+
+    function goToPresidentSlide(index) {
+      const slides = document.querySelectorAll(".president-slide");
+      const totalSlides = slides.length;
+
+      if (totalSlides === 0) return;
+
+      currentPresidentSlide = index;
+
+      if (currentPresidentSlide < 0) {
+        currentPresidentSlide = totalSlides - 1;
+      }
+
+      if (currentPresidentSlide >= totalSlides) {
+        currentPresidentSlide = 0;
+      }
+
+      updatePresidentSlider();
+      restartPresidentAutoPlay();
+    }
+
+    function changePresidentSlide(direction) {
+      goToPresidentSlide(currentPresidentSlide + direction);
+    }
+
+    function startPresidentAutoPlay() {
+      presidentAutoPlay = setInterval(function () {
+        const slides = document.querySelectorAll(".president-slide");
+
+        if (slides.length > 0) {
+          currentPresidentSlide = (currentPresidentSlide + 1) % slides.length;
+          updatePresidentSlider();
+        }
+      }, 4200);
+    }
+
+    function restartPresidentAutoPlay() {
+      if (presidentAutoPlay) {
+        clearInterval(presidentAutoPlay);
+      }
+
+      startPresidentAutoPlay();
+    }
+
     window.addEventListener("load", function () {
       const savedLanguage = localStorage.getItem("mcsa-language") || "zh";
       setLanguage(savedLanguage);
@@ -1706,6 +2227,9 @@
       setTimeout(function () {
         hideOpening();
       }, 6500);
+
+      updatePresidentSlider();
+      startPresidentAutoPlay();
     });
   </script>
 
